@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://1qp8n0l40fqr"]
+
+[ext_resource type="Script" uid="uid://b03k6lhjxxq27" path="res://src/environment/platform.gd" id="1_ybxv7"]
+
+[node name="Level" type="Node3D" unique_id=748326354]
+
+[node name="Platform" type="StaticBody3D" parent="." unique_id=915785730]
+script = ExtResource("1_ybxv7")
+color = Color(0.53254026, 0.26475412, 0.6975314, 1)
+metadata/_custom_type_script = "uid://b03k6lhjxxq27"
