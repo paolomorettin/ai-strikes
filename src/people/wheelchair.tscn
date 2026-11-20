@@ -1,0 +1,57 @@
+[gd_scene format=3 uid="uid://bhrjhrcee4267"]
+
+[ext_resource type="Script" uid="uid://cefcumjs5pne" path="res://src/people/wheelchair.gd" id="1_4fiib"]
+[ext_resource type="Script" uid="uid://ccs8vr3x1miq0" path="res://src/traffic_light.gd" id="2_s3t5s"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2ijik"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wxasx"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_2ijik"]
+material = SubResource("StandardMaterial3D_wxasx")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2uo11"]
+resource_local_to_scene = true
+albedo_color = Color(0.86343604, 5.318448e-06, 7.70092e-07, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_k6kcw"]
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_2uo11")
+size = Vector3(0.2, 0.2, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_k6kcw"]
+size = Vector3(2, 1, 1)
+
+[node name="Wheelchair" type="CharacterBody3D" unique_id=262619796]
+script = ExtResource("1_4fiib")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1746594853]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("BoxShape3D_2ijik")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3D" unique_id=508410517]
+mesh = SubResource("BoxMesh_2ijik")
+
+[node name="Brakes" type="Node3D" parent="." unique_id=694328577]
+unique_name_in_owner = true
+script = ExtResource("2_s3t5s")
+metadata/_custom_type_script = "uid://ccs8vr3x1miq0"
+
+[node name="BrakeLights" type="MeshInstance3D" parent="Brakes" unique_id=900527694]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6, 0.6, 0)
+mesh = SubResource("BoxMesh_k6kcw")
+
+[node name="Sensing" type="Area3D" parent="." unique_id=1282772986]
+unique_name_in_owner = true
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sensing" unique_id=1100053039]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0.5, 0)
+shape = SubResource("BoxShape3D_k6kcw")
+debug_color = Color(0, 0.6509804, 0.13725491, 0.91764706)
+
+[node name="HaltTimer" type="Timer" parent="." unique_id=2019891105]
+unique_name_in_owner = true
+wait_time = 2.0
+one_shot = true
