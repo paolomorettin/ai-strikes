@@ -3,7 +3,8 @@
 [ext_resource type="Script" uid="uid://cefcumjs5pne" path="res://src/people/wheelchair.gd" id="1_4fiib"]
 [ext_resource type="Script" uid="uid://ccs8vr3x1miq0" path="res://src/traffic_light.gd" id="2_s3t5s"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_2ijik"]
+[sub_resource type="SphereShape3D" id="SphereShape3D_s3t5s"]
+resource_local_to_scene = true
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wxasx"]
 
@@ -27,7 +28,7 @@ script = ExtResource("1_4fiib")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1746594853]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
-shape = SubResource("BoxShape3D_2ijik")
+shape = SubResource("SphereShape3D_s3t5s")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3D" unique_id=508410517]
 mesh = SubResource("BoxMesh_2ijik")
