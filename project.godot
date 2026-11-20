@@ -78,6 +78,12 @@ menu={
 ]
 }
 
+[layer_names]
+
+3d_physics/layer_1="FLOOR"
+3d_physics/layer_2="WALLS"
+3d_physics/layer_3="OBJECTS"
+
 [physics]
 
 3d/physics_engine="Jolt Physics"

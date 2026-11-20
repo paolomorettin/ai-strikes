@@ -24,6 +24,8 @@ size = Vector3(0.2, 0.2, 1)
 size = Vector3(2, 1, 1)
 
 [node name="Wheelchair" type="CharacterBody3D" unique_id=262619796]
+collision_layer = 4
+collision_mask = 7
 script = ExtResource("1_4fiib")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1746594853]
@@ -45,6 +47,8 @@ mesh = SubResource("BoxMesh_k6kcw")
 
 [node name="Sensing" type="Area3D" parent="." unique_id=1282772986]
 unique_name_in_owner = true
+collision_layer = 0
+collision_mask = 6
 monitorable = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Sensing" unique_id=1100053039]

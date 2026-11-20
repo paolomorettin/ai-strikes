@@ -1,6 +1,8 @@
 class_name Wheelchair
 extends CharacterBody3D
 
+const THETA = deg_to_rad(5)
+
 @onready var brakes: TrafficLight = %Brakes
 @onready var brake_lights: MeshInstance3D = %BrakeLights
 @onready var halt_timer: Timer = %HaltTimer
@@ -8,10 +10,11 @@ extends CharacterBody3D
 
 enum States {BRAKE, HALT, IDLE, MOVE, ROTATE}
 var current_state: States
-var current_direction: int = 1
 
-var acceleration: float = 0.6 # m/s^2
-var deceleration: float = 2.0 # m/s^2
+var facing: Vector3 = Vector3.RIGHT
+
+var acceleration: float = 0.1 # m/s^2
+var deceleration: float = 0.3 # m/s^2
 var max_speed: float = 10.0 # m/s
 var rotation_speed: float = 1.0 # TAU/2*s
 
@@ -27,11 +30,13 @@ func explode() -> void:
 func turn_around() -> void:
 	current_state = States.ROTATE
 	var tween = get_tree().create_tween()
-	var rotated_quaternion: Quaternion = Quaternion(Vector3.UP, TAU/2) * quaternion
+	var rotated_quaternion: Quaternion = quaternion * Quaternion(Vector3.UP, TAU/2)
 	tween.tween_property(self, "quaternion", rotated_quaternion, rotation_speed)
-	tween.tween_callback(func(): current_direction = -current_direction; current_state = States.IDLE)
+	tween.tween_callback(func(): current_state = States.IDLE)
 
 func _physics_process(delta: float) -> void:
+
+	facing = (quaternion * Vector3.RIGHT).normalized()
 
 	# computes the closest obstacle ahead (if any)
 	var obstacles_ahead: Array[Node3D] = sensing.get_overlapping_bodies()
@@ -45,6 +50,7 @@ func _physics_process(delta: float) -> void:
 			min_dist = dist
 	
 	if current_state != States.ROTATE:
+		# TODO: change this for arbitrary facing vectors
 		if closest_obstacle == null or (
 			closest_obstacle is CharacterBody3D and
 			closest_obstacle.velocity.x * self.velocity.x > 0 and
@@ -60,19 +66,34 @@ func _physics_process(delta: float) -> void:
 				_set_brake_lights(true)
 				current_state = States.BRAKE
 	
-	# move horizontally according to 'current_state'
 	if is_on_floor():
+		var linear_speed: float = velocity.length()
 		if current_state == States.BRAKE:
-			velocity.x = current_direction * max(0.0, abs(velocity.x) - deceleration * delta)
-			if abs(velocity.x) == 0 and halt_timer.is_stopped():
-				halt_timer.start()
+			
+			if linear_speed > 0:
+				velocity = facing * max(0.0, linear_speed - deceleration)
+				prints(self, "braking")
+			else:
+				velocity = Vector3.ZERO
+				prints(self, "stopped")
+				if halt_timer.is_stopped():
+					halt_timer.start()
+
 		elif current_state == States.MOVE:
-			velocity.x = current_direction * min(max_speed, abs(velocity.x) + acceleration * delta)
+			prints(self, "moving")
+			velocity = facing * min(max_speed, linear_speed + acceleration)
+			
+		#if facing.angle_to(Vector3.RIGHT) > deg_to_rad(5) and facing.angle_to(Vector3.LEFT) > deg_to_rad(5) and current_state in [States.MOVE, States.BRAKE]:
+			#prints("facing", facing,  "velocity", velocity, "linear speed:", linear_speed)
 
 	else:
 		velocity += get_gravity()
 	
 	move_and_slide()
+	if is_on_floor() and current_state != States.ROTATE:
+		var floor_normal: Vector3 = get_floor_normal()
+		if floor_normal.angle_to(quaternion * Vector3.UP) > THETA:
+			quaternion = (Quaternion(Vector3.UP, floor_normal) * quaternion).normalized()
 
 func _ready() -> void:
 	brake_lights.mesh.material = StandardMaterial3D.new()
