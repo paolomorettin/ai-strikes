@@ -8,33 +8,40 @@ const THETA = deg_to_rad(5)
 @onready var halt_timer: Timer = %HaltTimer
 @onready var sensing: Area3D = %Sensing
 
-enum States {BRAKE, HALT, IDLE, MOVE, ROTATE}
-var current_state: States
+enum State {BRAKE, HALT, IDLE, MOVE, OVERRIDE, ROTATE}
+var current_state: State
 
 var facing: Vector3 = Vector3.RIGHT
 
 var acceleration: float = 0.1 # m/s^2
 var deceleration: float = 0.3 # m/s^2
 var max_speed: float = 10.0 # m/s
-var rotation_speed: float = 1.0 # TAU/2*s
+var turn_around_time: float = 1.0 # TAU/2*s
 
-func explode() -> void:
-	var tween = get_tree().create_tween()
-	var eps = 0.01
-	var delta = 0.1
-	for i in range(10):
-		var random_pos: Vector3 = position + Vector3(randf_range(-eps, eps), randf_range(-eps, eps), randf_range(-eps, eps))
-		tween.tween_property(self, "position", random_pos, delta)
-	tween.tween_callback(queue_free)
+#func explode() -> void:
+	#var tween = get_tree().create_tween()
+	#var eps = 0.01
+	#var delta = 0.1
+	#for i in range(10):
+		#var random_pos: Vector3 = position + Vector3(randf_range(-eps, eps), randf_range(-eps, eps), randf_range(-eps, eps))
+		#tween.tween_property(self, "position", random_pos, delta)
+#
+	#tween.tween_callback(queue_free)
+	
+func disable_collisions() -> void:
+	collision_layer = 0
 
 func turn_around() -> void:
-	current_state = States.ROTATE
+	current_state = State.ROTATE
 	var tween = get_tree().create_tween()
 	var rotated_quaternion: Quaternion = quaternion * Quaternion(Vector3.UP, TAU/2)
-	tween.tween_property(self, "quaternion", rotated_quaternion, rotation_speed)
-	tween.tween_callback(func(): current_state = States.IDLE)
+	tween.tween_property(self, "quaternion", rotated_quaternion, turn_around_time)
+	tween.tween_callback(func(): current_state = State.IDLE)
 
 func _physics_process(delta: float) -> void:
+	
+	if current_state == State.OVERRIDE:
+		return
 
 	facing = (quaternion * Vector3.RIGHT).normalized()
 
@@ -49,7 +56,7 @@ func _physics_process(delta: float) -> void:
 			closest_obstacle = obs
 			min_dist = dist
 	
-	if current_state != States.ROTATE:
+	if current_state != State.ROTATE:
 		# TODO: (MAYBE NOT NECESSARY) change this for arbitrary facing vectors
 		if closest_obstacle == null or (
 			closest_obstacle is CharacterBody3D and
@@ -57,18 +64,18 @@ func _physics_process(delta: float) -> void:
 			abs(closest_obstacle.velocity.x) - abs(self.velocity.x) > 0
 		):
 			# if the closest obstacle (if any) is moving in the same direction at higher speed
-			if current_state != States.MOVE:
+			if current_state != State.MOVE:
 				_set_brake_lights(false)
-				current_state = States.MOVE
+				current_state = State.MOVE
 				halt_timer.stop()
 		else:
-			if current_state != States.BRAKE:
+			if current_state != State.BRAKE:
 				_set_brake_lights(true)
-				current_state = States.BRAKE
+				current_state = State.BRAKE
 	
 	# handle horizontal velocity
 	if is_on_floor():
-		if current_state == States.BRAKE:
+		if current_state == State.BRAKE:
 			if abs(velocity.x) > 0:
 				velocity.x = sign(facing.x) * max(0.0, abs(velocity.x) - deceleration)
 				prints(self, "braking")
@@ -76,14 +83,14 @@ func _physics_process(delta: float) -> void:
 				if halt_timer.is_stopped():
 					halt_timer.start()
 
-		elif current_state == States.MOVE:
+		elif current_state == State.MOVE:
 			velocity.x = sign(facing.x) * min(max_speed, abs(velocity.x) + acceleration)
 
 	else:
 		velocity += get_gravity()
 	
 	move_and_slide()
-	if is_on_floor() and current_state != States.ROTATE:
+	if is_on_floor() and current_state != State.ROTATE:
 		var floor_normal: Vector3 = get_floor_normal()
 		if floor_normal.angle_to(quaternion * Vector3.UP) > THETA:
 			quaternion = (Quaternion(Vector3.UP, floor_normal) * quaternion).normalized()
@@ -91,7 +98,7 @@ func _physics_process(delta: float) -> void:
 func _ready() -> void:
 	brake_lights.mesh.material = StandardMaterial3D.new()
 	halt_timer.timeout.connect(turn_around)
-	current_state = States.IDLE
+	current_state = State.IDLE
 
 func _set_brake_lights(braking: bool) -> void:
 	brakes.stop = braking
