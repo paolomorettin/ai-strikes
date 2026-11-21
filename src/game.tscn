@@ -10,6 +10,9 @@
 [node name="Wheelchair4" parent="." unique_id=1459374777 instance=ExtResource("2_xq6wo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.34472275, 5.150676, 0)
 
+[node name="Wheelchair5" parent="." unique_id=262619796 instance=ExtResource("2_xq6wo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.34472275, 0.9979811, 0)
+
 [node name="Camera" parent="." unique_id=1529662360 instance=ExtResource("3_xq6wo")]
 transform = Transform3D(1, 0, 0, 0, 0.9848077, 0.17364818, 0, -0.17364818, 0.9848077, 0, 1, 5)
 
@@ -20,7 +23,7 @@ transform = Transform3D(0.9605089, 0.068557285, -0.2696712, 0, 0.9691713, 0.2463
 transform = Transform3D(0.9990375, -0.043864448, 0, 0.043864448, 0.9990375, 0, 0, 0, 1, 0, 0, 0)
 
 [node name="TestPlatform2" parent="." unique_id=1297807626 instance=ExtResource("3_kc8ui")]
-transform = Transform3D(0.9856028, 0.16893275, 0.006986052, -0.16886821, 0.98559767, -0.008984713, -0.008403247, 0.0076756384, 0.9999352, -0.01391983, 3.9098594, 0)
+transform = Transform3D(0.930743, 0.36563963, 0.005015073, -0.36557743, 0.9307248, -0.010216606, -0.008403246, 0.007675639, 0.99993515, -0.01391983, 3.9098594, 0)
 
 [node name="TestWall" parent="." unique_id=1225326320 instance=ExtResource("4_bs6l1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 1, 0)

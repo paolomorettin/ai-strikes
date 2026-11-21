@@ -50,7 +50,7 @@ func _physics_process(delta: float) -> void:
 			min_dist = dist
 	
 	if current_state != States.ROTATE:
-		# TODO: change this for arbitrary facing vectors
+		# TODO: (MAYBE NOT NECESSARY) change this for arbitrary facing vectors
 		if closest_obstacle == null or (
 			closest_obstacle is CharacterBody3D and
 			closest_obstacle.velocity.x * self.velocity.x > 0 and
@@ -66,25 +66,18 @@ func _physics_process(delta: float) -> void:
 				_set_brake_lights(true)
 				current_state = States.BRAKE
 	
+	# handle horizontal velocity
 	if is_on_floor():
-		var linear_speed: float = velocity.length()
 		if current_state == States.BRAKE:
-			
-			if linear_speed > 0:
-				velocity = facing * max(0.0, linear_speed - deceleration)
+			if abs(velocity.x) > 0:
+				velocity.x = sign(facing.x) * max(0.0, abs(velocity.x) - deceleration)
 				prints(self, "braking")
 			else:
-				velocity = Vector3.ZERO
-				prints(self, "stopped")
 				if halt_timer.is_stopped():
 					halt_timer.start()
 
 		elif current_state == States.MOVE:
-			prints(self, "moving")
-			velocity = facing * min(max_speed, linear_speed + acceleration)
-			
-		#if facing.angle_to(Vector3.RIGHT) > deg_to_rad(5) and facing.angle_to(Vector3.LEFT) > deg_to_rad(5) and current_state in [States.MOVE, States.BRAKE]:
-			#prints("facing", facing,  "velocity", velocity, "linear speed:", linear_speed)
+			velocity.x = sign(facing.x) * min(max_speed, abs(velocity.x) + acceleration)
 
 	else:
 		velocity += get_gravity()
