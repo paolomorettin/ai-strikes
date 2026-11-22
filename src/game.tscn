@@ -9,29 +9,49 @@
 [node name="Game" type="Node3D" unique_id=661229827]
 
 [node name="Camera" parent="." unique_id=1529662360 instance=ExtResource("3_xq6wo")]
-transform = Transform3D(1, 0, 0, 0, 0.9848077, 0.17364818, 0, -0.17364818, 0.9848077, 0, 1, 5)
+transform = Transform3D(1, 0, 0, 0, 0.9848078, 0.1736482, 0, -0.1736482, 0.9848078, 0, 2, 5)
 
 [node name="Sun" type="DirectionalLight3D" parent="." unique_id=1406060814]
-transform = Transform3D(0.9605089, 0.068557285, -0.2696712, 0, 0.9691713, 0.24638802, 0.27824926, -0.23665787, 0.93089765, -5.3468933, 4.430237, 8.961426)
+transform = Transform3D(0.9605089, 0.068557285, -0.2696712, 0, 0.9691713, 0.24638802, 0.27824926, -0.23665787, 0.93089765, -5.3468933, 5.430237, 8.961426)
 
 [node name="TestPlatform" parent="." unique_id=2103395743 instance=ExtResource("3_kc8ui")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, -0.25, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0.75, 0)
 
 [node name="TestPlatform2" parent="." unique_id=1911033185 instance=ExtResource("3_kc8ui")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, -0.25, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0.75, 0)
 
 [node name="TestWall" parent="." unique_id=1225326320 instance=ExtResource("4_bs6l1")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 1, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 2, 0)
 
 [node name="TestWall2" parent="." unique_id=1723653881 instance=ExtResource("4_bs6l1")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.8250065, 1, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.8250065, 2, 0)
 
 [node name="Exit" parent="." unique_id=617829593 instance=ExtResource("5_bs6l1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 1, 0)
 
 [node name="Entrance" parent="." unique_id=667945413 instance=ExtResource("6_pk08u")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 0)
-direction = 1
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 1, 0)
 
-[node name="Entrance2" parent="." unique_id=392937884 instance=ExtResource("6_pk08u")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 0)
-direction = 0
+[node name="Camera2" parent="." unique_id=127547235 instance=ExtResource("3_xq6wo")]
+transform = Transform3D(1, 0, 0, 0, 0.9848078, 0.1736482, 0, -0.1736482, 0.9848078, 0, -1, 5)
+
+[node name="Sun2" type="DirectionalLight3D" parent="." unique_id=376571856]
+transform = Transform3D(0.9605089, 0.068557285, -0.2696712, 0, 0.9691713, 0.24638802, 0.27824926, -0.23665787, 0.93089765, -5.3468933, 2.4302368, 8.961426)
+
+[node name="TestPlatform3" parent="." unique_id=2033910832 instance=ExtResource("3_kc8ui")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, -2.25, 0)
+
+[node name="TestPlatform4" parent="." unique_id=598961499 instance=ExtResource("3_kc8ui")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, -2.25, 0)
+
+[node name="TestWall3" parent="." unique_id=465451181 instance=ExtResource("4_bs6l1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, -1, 0)
+
+[node name="TestWall4" parent="." unique_id=402075581 instance=ExtResource("4_bs6l1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.8250065, -1, 0)
+
+[node name="Exit2" parent="." unique_id=562705601 instance=ExtResource("5_bs6l1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, -2, 0)
+
+[node name="Entrance2" parent="." unique_id=1738104194 instance=ExtResource("6_pk08u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, -2, 0)
