@@ -43,9 +43,8 @@ func actual_spawn() -> void:
 	tween.tween_property(last_spawned, "quaternion", target_quaternion, Wheelchair.turn_around_time / 2.0)
 	tween.tween_callback(
 		func (): 
-			#last_spawned.enable_collisions();
-			last_spawned.current_state = Wheelchair.State.IDLE; 
 			is_spawning = false
+			last_spawned.current_state = Wheelchair.State.IDLE; 
 	)
 
 

@@ -3,34 +3,54 @@ extends Camera3D
 
 const EPSILON = 0.01
 
-var target_position: Vector3
-
+var next_camera_position: Vector3
 var zoom_increment: float = 0.5
 
+var selected: Node3D
+
+func interact_primary() -> void:
+	if selected != null and selected is Wheelchair and (selected as Wheelchair).current_state != Wheelchair.State.OVERRIDE:
+		(selected as Wheelchair).die()
 
 func _input(event: InputEvent) -> void:
+	
+	if event is InputEventMouseMotion:
+		_raycast()
+	
 	if event.is_action_pressed("zoom_in"):
-		target_position.z -= zoom_increment
+		next_camera_position.z -= zoom_increment
 	elif event.is_action_pressed("zoom_out"):
-		target_position.z += zoom_increment
+		next_camera_position.z += zoom_increment
+	elif event.is_action_pressed("primary"):
+		interact_primary()
 
 
 func _physics_process(delta: float) -> void:
 	
 	if Input.is_action_pressed("left"):
-		target_position.x -= zoom_increment
+		next_camera_position.x -= zoom_increment
 	if Input.is_action_pressed("right"):
-		target_position.x += zoom_increment
+		next_camera_position.x += zoom_increment
 	if Input.is_action_pressed("down"):
-		target_position.y -= zoom_increment
+		next_camera_position.y -= zoom_increment
 	if Input.is_action_pressed("up"):
-		target_position.y += zoom_increment
+		next_camera_position.y += zoom_increment
 	
-	var direction: Vector3 = (target_position - global_position)
+	var direction: Vector3 = (next_camera_position - global_position)
 	if direction.length() > EPSILON:
 		global_position += direction * 0.5
 	else:
-		global_position = target_position
+		global_position = next_camera_position
+		
+func _raycast() -> void:
+	var space_state = get_world_3d().direct_space_state
+	var target_position = Plane(Vector3.BACK, Vector3.ZERO).intersects_ray(global_position, project_ray_normal(get_viewport().get_mouse_position()))
+	var collision_mask: int = 4 # i.e. only objects
+	var query = PhysicsRayQueryParameters3D.create(global_position, target_position, collision_mask)
+	var result = space_state.intersect_ray(query)
+	var collider = result.get("collider")
+	# probably I should put conditions
+	selected = collider
 
 func _ready() -> void:
-	target_position = global_position
+	next_camera_position = global_position

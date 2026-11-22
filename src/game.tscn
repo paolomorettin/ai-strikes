@@ -35,9 +35,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 1, 0)
 [node name="Camera2" parent="." unique_id=127547235 instance=ExtResource("3_xq6wo")]
 transform = Transform3D(1, 0, 0, 0, 0.9848078, 0.1736482, 0, -0.1736482, 0.9848078, 0, -1, 5)
 
-[node name="Sun2" type="DirectionalLight3D" parent="." unique_id=376571856]
-transform = Transform3D(0.9605089, 0.068557285, -0.2696712, 0, 0.9691713, 0.24638802, 0.27824926, -0.23665787, 0.93089765, -5.3468933, 2.4302368, 8.961426)
-
 [node name="TestPlatform3" parent="." unique_id=2033910832 instance=ExtResource("3_kc8ui")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, -2.25, 0)
 
