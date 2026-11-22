@@ -12,6 +12,12 @@ size = Vector3(1, 2, 0.5)
 [sub_resource type="BoxShape3D" id="BoxShape3D_2ijik"]
 size = Vector3(2, 1, 1)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_h5sjc"]
+size = Vector3(2, 0.5, 2)
+
+[sub_resource type="BoxMesh" id="BoxMesh_6eay2"]
+size = Vector3(2, 0.5, 2)
+
 [node name="Exit" type="Node3D" unique_id=617829593]
 script = ExtResource("1_h5sjc")
 
@@ -28,3 +34,13 @@ collision_mask = 4
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 shape = SubResource("BoxShape3D_2ijik")
 debug_color = Color(0.8392157, 0, 0.92156863, 1)
+
+[node name="Platform" type="StaticBody3D" parent="." unique_id=1676454451]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, -2)
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Platform" unique_id=1411690698]
+shape = SubResource("BoxShape3D_h5sjc")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Platform" unique_id=326374305]
+mesh = SubResource("BoxMesh_6eay2")

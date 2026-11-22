@@ -3,46 +3,40 @@ extends Node3D
 
 @onready var control_area: Area3D = %ControlArea
 
-var currently_serving = null:
-	set(wheelchair):
-		currently_serving = wheelchair
-		if wheelchair != null:
-			serve(wheelchair)
+var is_despawning: bool = false
 
-var queue: Array[Wheelchair] = []
+var despawn_point: Vector3
 
 func control_body(body: Node3D) -> void:
 	if not (body is Wheelchair):
 		return
-		
-	(body as Wheelchair).current_state = Wheelchair.State.OVERRIDE
-	if currently_serving == null:
-		currently_serving = body
+
+	if not is_despawning:
+		serve(body)
 	else:
-		queue.append(body)
-		
-func remove_current() -> void:
-	(currently_serving as Node).queue_free()
-	currently_serving = queue.pop_front()
+		(body as Wheelchair).turn_around()
 	
 func serve(wheelchair: Wheelchair) -> void:
-	wheelchair.disable_collisions()
+	is_despawning = true
+	wheelchair.current_state = Wheelchair.State.OVERRIDE
 	var horizontal_movement_duration = wheelchair.global_position.distance_to(global_position) / abs(wheelchair.velocity.x)
-	var despawn_point = Vector3(global_position.x, global_position.y, -4.0)
 	var despawn_duration = -despawn_point.z / abs(wheelchair.velocity.x)
-	var target_rotation: float = TAU / 4
-	if wheelchair.global_position.x > global_position.x:
-		target_rotation = -target_rotation
+	var target_quaternion: Quaternion
+	if wheelchair.global_position.x < global_position.x:
+		target_quaternion = Quaternion(Vector3.UP, TAU / 4) * wheelchair.quaternion
+	else:
+		target_quaternion = Quaternion(Vector3.UP, -TAU / 4) * wheelchair.quaternion
 	
 	var tween = get_tree().create_tween()
 	# x-movement to exit
-	tween.tween_property(wheelchair, "global_position", global_position, horizontal_movement_duration)
+	tween.tween_property(wheelchair, "global_position:x", global_position.x, horizontal_movement_duration)
 	# rotation towards exit
-	tween.tween_property(wheelchair, "rotation:y", target_rotation, wheelchair.turn_around_time / 2.0)
+	tween.tween_property(wheelchair, "quaternion", target_quaternion, wheelchair.turn_around_time / 2.0)
 	# z-movement to exit
-	tween.tween_property(wheelchair, "global_position", despawn_point, despawn_duration)
-	tween.tween_callback(remove_current)
+	tween.tween_property(wheelchair, "global_position:z", despawn_point.z, despawn_duration)
+	tween.tween_callback(func (): wheelchair.queue_free(); is_despawning = false)
 	
 
 func _ready() -> void:
+	despawn_point = Vector3(global_position.x, global_position.y, -3)
 	control_area.body_entered.connect(control_body)
