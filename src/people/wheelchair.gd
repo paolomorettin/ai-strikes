@@ -10,7 +10,13 @@ static var turn_around_time: float = 1.0 # TAU/2*s
 
 @onready var brake_lights: MeshInstance3D = %BrakeLights
 @onready var halt_timer: Timer = %HaltTimer
+@onready var main_mash: MeshInstance3D = %MainMesh
+@onready var ttl_timer: Timer = %TTLTimer
 @onready var sensing: Area3D = %Sensing
+
+# particle factories
+var explosions = preload("res://src/particles/explosion.tscn")
+var sparks = preload("res://src/particles/sparks.tscn")
 
 enum State {
 	BRAKE, # braking
@@ -27,16 +33,15 @@ var current_state: State:
 var facing: Vector3 = Vector3.RIGHT
 
 
-#func explode() -> void:
-	#var tween = get_tree().create_tween()
-	#var eps = 0.01
-	#var delta = 0.1
-	#for i in range(10):
-		#var random_pos: Vector3 = position + Vector3(randf_range(-eps, eps), randf_range(-eps, eps), randf_range(-eps, eps))
-		#tween.tween_property(self, "position", random_pos, delta)
-#
-	#tween.tween_callback(queue_free)
+func die() -> void:
+	var explosion: CPUParticles3D = explosions.instantiate()
+	explosion.finished.connect(func(): explosion.queue_free())
+	get_parent().add_child(explosion)
+	explosion.global_position = global_position
+	explosion.emitting = true
+	queue_free()
 	
+
 func disable_collisions() -> void:
 	collision_layer = 0
 	
@@ -111,6 +116,9 @@ func _physics_process(delta: float) -> void:
 func _ready() -> void:
 	brake_lights.mesh.material = StandardMaterial3D.new()
 	halt_timer.timeout.connect(turn_around)
+	ttl_timer.timeout.connect(die)
+	ttl_timer.start()
+	
 	current_state = State.IDLE
 
 func _set_brake_lights(state: State) -> void:

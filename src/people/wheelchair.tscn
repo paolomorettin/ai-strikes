@@ -5,13 +5,13 @@
 [sub_resource type="SphereShape3D" id="SphereShape3D_s3t5s"]
 resource_local_to_scene = true
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_k6kcw"]
+size = Vector3(2, 1, 1)
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wxasx"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_2ijik"]
 material = SubResource("StandardMaterial3D_wxasx")
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_k6kcw"]
-size = Vector3(2, 1, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2uo11"]
 resource_local_to_scene = true
@@ -31,9 +31,6 @@ script = ExtResource("1_4fiib")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 shape = SubResource("SphereShape3D_s3t5s")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3D" unique_id=508410517]
-mesh = SubResource("BoxMesh_2ijik")
-
 [node name="Sensing" type="Area3D" parent="." unique_id=1282772986]
 unique_name_in_owner = true
 collision_layer = 0
@@ -50,7 +47,17 @@ unique_name_in_owner = true
 wait_time = 2.0
 one_shot = true
 
-[node name="BrakeLights" type="MeshInstance3D" parent="." unique_id=900527694]
+[node name="TTLTimer" type="Timer" parent="." unique_id=1660431023]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6, 0.6, 0)
+wait_time = 10.0
+one_shot = true
+
+[node name="MainMesh" type="MeshInstance3D" parent="." unique_id=508410517]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+mesh = SubResource("BoxMesh_2ijik")
+
+[node name="BrakeLights" type="MeshInstance3D" parent="MainMesh" unique_id=900527694]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6, 0.100000024, 0)
 mesh = SubResource("BoxMesh_k6kcw")

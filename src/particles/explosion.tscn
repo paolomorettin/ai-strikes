@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://djslpvnaemdyv"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s3t5s"]
+vertex_color_use_as_albedo = true
+emission_enabled = true
+emission = Color(0.23529412, 0, 0, 1)
+emission_energy_multiplier = 5.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_2ijik"]
+material = SubResource("StandardMaterial3D_s3t5s")
+radius = 1.0
+height = 2.0
+radial_segments = 16
+rings = 8
+
+[sub_resource type="Curve" id="Curve_wxasx"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.20833333, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_fxo6m"]
+colors = PackedColorArray(1, 0.69411767, 0, 1, 0.95480233, 0.349068, 1.92523e-07, 0.7372549)
+
+[node name="Explosion" type="CPUParticles3D" unique_id=398303584]
+emitting = false
+amount = 30
+one_shot = true
+explosiveness = 0.5
+mesh = SubResource("SphereMesh_2ijik")
+direction = Vector3(0, 1, 0)
+spread = 180.0
+gravity = Vector3(0, 1, 0)
+initial_velocity_min = 2.0
+initial_velocity_max = 5.0
+scale_amount_curve = SubResource("Curve_wxasx")
+color_ramp = SubResource("Gradient_fxo6m")
