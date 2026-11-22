@@ -3,9 +3,9 @@ extends CharacterBody3D
 
 const THETA = deg_to_rad(5)
 
-static var acceleration: float = 0.1 # m/s^2
-static var deceleration: float = 0.3 # m/s^2
-static var max_speed: float = 10.0 # m/s
+static var acceleration: float = 0.05 # m/s^2
+static var deceleration: float = 0.15 # m/s^2
+static var max_speed: float = 4.0 # m/s
 static var turn_around_time: float = 1.0 # TAU/2*s
 
 @onready var brake_lights: MeshInstance3D = %BrakeLights
