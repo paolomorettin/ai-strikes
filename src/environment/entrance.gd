@@ -19,17 +19,12 @@ func control_traffic(body: Node3D) -> void:
 		return
 	if is_spawning:
 		(body as Wheelchair).turn_around()
-		
-func ready_to_spawn(body: Node3D) -> void:
-	if not (body is Wheelchair) or body != last_spawned:
-		return
-	last_spawned = null
-	
+
 func actual_spawn() -> void:
 	last_spawned.current_state = Wheelchair.State.OVERRIDE
 	last_spawned.global_position = spawn_point
 	last_spawned.quaternion = Quaternion(Vector3.UP, -TAU/4)
-	last_spawned.disable_collisions()
+	#last_spawned.disable_collisions()
 	
 	var spawn_duration = -spawn_point.z / (spawn_speed * Wheelchair.max_speed)
 	var target_quaternion: Quaternion
@@ -48,7 +43,7 @@ func actual_spawn() -> void:
 	tween.tween_property(last_spawned, "quaternion", target_quaternion, Wheelchair.turn_around_time / 2.0)
 	tween.tween_callback(
 		func (): 
-			last_spawned.enable_collisions();
+			#last_spawned.enable_collisions();
 			last_spawned.current_state = Wheelchair.State.IDLE; 
 			is_spawning = false
 	)
@@ -68,5 +63,4 @@ func tentative_spawn() -> void:
 func _ready() -> void:
 	spawn_point = Vector3(global_position.x, global_position.y, -3)
 	control_area.body_entered.connect(control_traffic)
-	control_area.body_exited.connect(ready_to_spawn)
 	spawn_timer.timeout.connect(tentative_spawn)
