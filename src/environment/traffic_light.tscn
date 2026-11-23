@@ -1,20 +1,22 @@
 [gd_scene format=3 uid="uid://dt0qchp445sp7"]
 
 [ext_resource type="Script" uid="uid://b6x5qhixplolv" path="res://src/environment/traffic_light.gd" id="1_1w42a"]
+[ext_resource type="Material" uid="uid://ctclq4hdt0vkn" path="res://materials/dark_metal.tres" id="2_foecb"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_2ijik"]
+material = ExtResource("2_foecb")
+size = Vector3(1, 0.5, 1)
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_k6kcw"]
+material = ExtResource("2_foecb")
 top_radius = 0.1
 bottom_radius = 0.1
 height = 1.2
 radial_segments = 16
 rings = 1
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_k6kcw"]
-metallic = 1.0
-roughness = 0.75
-
-[sub_resource type="BoxMesh" id="BoxMesh_2ijik"]
-material = SubResource("StandardMaterial3D_k6kcw")
+[sub_resource type="BoxMesh" id="BoxMesh_1w42a"]
+material = ExtResource("2_foecb")
 size = Vector3(0.5, 1, 0.5)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vpyd8"]
@@ -43,13 +45,17 @@ size = Vector3(4, 1, 1)
 [node name="TrafficLight" type="Node3D" unique_id=661604078]
 script = ExtResource("1_1w42a")
 
+[node name="Platform" type="MeshInstance3D" parent="." unique_id=1186598212]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, -1.5)
+mesh = SubResource("BoxMesh_2ijik")
+
 [node name="Pole" type="MeshInstance3D" parent="." unique_id=1665408230]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, -1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, -1.5)
 mesh = SubResource("CylinderMesh_k6kcw")
 
 [node name="Body" type="MeshInstance3D" parent="Pole" unique_id=1498439772]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
-mesh = SubResource("BoxMesh_2ijik")
+mesh = SubResource("BoxMesh_1w42a")
 
 [node name="RedLight" type="MeshInstance3D" parent="Pole/Body" unique_id=1931058415]
 unique_name_in_owner = true

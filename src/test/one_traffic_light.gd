@@ -1,4 +1,4 @@
-extends Node3D
+extends Game
 
 @onready var tl: TrafficLight = %TL
 @onready var tl_timer: Timer = %TLTimer

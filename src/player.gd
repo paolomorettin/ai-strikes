@@ -1,5 +1,7 @@
-class_name Camera
+class_name Player
 extends Camera3D
+
+@onready var game: Game = get_parent()
 
 const EPSILON = 0.01
 
@@ -53,4 +55,5 @@ func _raycast() -> void:
 	selected = collider
 
 func _ready() -> void:
+	global_position = Vector3(0, 0, 10)
 	next_camera_position = global_position

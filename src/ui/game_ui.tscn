@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://cnm41ules776w"]
+
+[ext_resource type="Script" uid="uid://dhljitlqdg6xt" path="res://src/ui/game_ui.gd" id="1_jlfe0"]
+
+[node name="GameUI" type="Control" unique_id=1179739631]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_jlfe0")
+
+[node name="SidePanel" type="VBoxContainer" parent="." unique_id=22718019]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="StrokensLabel" type="Label" parent="SidePanel" unique_id=784398876]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "STOKENS"
+
+[node name="MayhemLabel" type="Label" parent="SidePanel" unique_id=1377490409]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "MAYHEM"
+
+[node name="TimerLabel" type="Label" parent="SidePanel" unique_id=1279498726]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "TIMER"

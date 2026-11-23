@@ -6,8 +6,8 @@ extends Node3D
 @onready var control_area: Area3D = %ControlArea
 
 @export var is_green: bool = true
-@export var parking_space: float = 1.1 # m
 
+var parking_space: float # m
 var queue: Array[Wheelchair] = []
 var queue_size: int
 
@@ -54,7 +54,6 @@ func switch() -> void:
 	if is_green:
 		dispatch()
 
-
 func _ready() -> void:
 	green_light_material = StandardMaterial3D.new()
 	green_light_material.albedo_color = Color(0, 0.7, 0)
@@ -74,10 +73,14 @@ func _ready() -> void:
 	_set_lights()
 	
 	control_area.body_entered.connect(control_traffic)
+	# TODO: compute parking space based on the wheelchair sensing distance
+	parking_space = 1.1
 	
 	# compute queue size based on the control area size
 	var control_area_size = (control_area.get_child(0).shape as BoxShape3D).size.x
 	queue_size = int(control_area_size / parking_space)
+	
+	
 
 func _set_lights() -> void:
 	if is_green:

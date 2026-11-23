@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bjg00ixkve11x"]
 
 [ext_resource type="Script" uid="uid://clp31nta31yk6" path="res://src/environment/exit.gd" id="1_h5sjc"]
+[ext_resource type="Material" uid="uid://ctclq4hdt0vkn" path="res://materials/dark_metal.tres" id="2_6eay2"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_k6kcw"]
 albedo_color = Color(1, 0, 1, 1)
@@ -16,6 +17,7 @@ size = Vector3(2, 1, 1)
 size = Vector3(2, 0.5, 2)
 
 [sub_resource type="BoxMesh" id="BoxMesh_6eay2"]
+material = ExtResource("2_6eay2")
 size = Vector3(2, 0.5, 2)
 
 [node name="Exit" type="Node3D" unique_id=617829593]

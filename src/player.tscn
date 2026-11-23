@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://do316kbatascm"]
 
-[ext_resource type="Script" uid="uid://bwub6vin3jpv7" path="res://src/camera.gd" id="1_xx8j4"]
+[ext_resource type="Script" uid="uid://bwub6vin3jpv7" path="res://src/player.gd" id="1_xx8j4"]
 
-[node name="Camera" type="Camera3D" unique_id=1529662360]
+[node name="Player" type="Camera3D" unique_id=1529662360]
 script = ExtResource("1_xx8j4")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=102008925]

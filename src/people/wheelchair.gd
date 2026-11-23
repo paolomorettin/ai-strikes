@@ -15,8 +15,8 @@ static var turn_around_time: float = 1.0 # TAU/2*s
 @onready var sensing: Area3D = %Sensing
 
 # particle factories
-var explosions = preload("res://src/particles/explosion.tscn")
-var sparks = preload("res://src/particles/sparks.tscn")
+var explosions = preload("res://particles/explosion.tscn")
+var sparks = preload("res://particles/sparks.tscn")
 
 enum State {
 	BRAKE, # braking

@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://5w7do6iv4tyh"]
 
-[ext_resource type="PackedScene" uid="uid://do316kbatascm" path="res://src/camera.tscn" id="1_lp2fr"]
+[ext_resource type="PackedScene" uid="uid://do316kbatascm" path="res://src/player.tscn" id="1_lp2fr"]
 [ext_resource type="PackedScene" uid="uid://bewnefd51q2qd" path="res://src/environment/test_platform.tscn" id="2_nqs0u"]
 [ext_resource type="PackedScene" uid="uid://cmc3qvxcmu5k6" path="res://src/environment/test_wall.tscn" id="3_camdw"]
 [ext_resource type="PackedScene" uid="uid://bhrjhrcee4267" path="res://src/people/wheelchair.tscn" id="4_vmhc4"]
