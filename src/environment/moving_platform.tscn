@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://bd57f7lbtgily"]
+
+[ext_resource type="Script" uid="uid://b873sgwn0sv42" path="res://src/environment/moving_platform.gd" id="1_6cowk"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2ijik"]
+size = Vector3(2, 1, 2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_k6kcw"]
+albedo_color = Color(0, 0.20155153, 0.20205522, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_2ijik"]
+material = SubResource("StandardMaterial3D_k6kcw")
+size = Vector3(2, 1, 2)
+
+[node name="MovingPlatform" type="Node3D" unique_id=325477302]
+script = ExtResource("1_6cowk")
+
+[node name="Platform" type="AnimatableBody3D" parent="." unique_id=1700442084]
+unique_name_in_owner = true
+collision_mask = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Platform" unique_id=388054789]
+shape = SubResource("BoxShape3D_2ijik")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Platform/CollisionShape3D" unique_id=1710213209]
+mesh = SubResource("BoxMesh_2ijik")
+
+[node name="IdleTimer" type="Timer" parent="." unique_id=1539432264]
+unique_name_in_owner = true
+wait_time = 3.0
+one_shot = true

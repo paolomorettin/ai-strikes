@@ -7,7 +7,7 @@ var is_despawning: bool = false
 
 var despawn_point: Vector3
 
-func control_body(body: Node3D) -> void:
+func control_traffic(body: Node3D) -> void:
 	if not (body is Wheelchair):
 		return
 
@@ -40,4 +40,4 @@ func serve(wheelchair: Wheelchair) -> void:
 
 func _ready() -> void:
 	despawn_point = Vector3(global_position.x, global_position.y, -3)
-	control_area.body_entered.connect(control_body)
+	control_area.body_entered.connect(control_traffic)

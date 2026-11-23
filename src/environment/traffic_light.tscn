@@ -1,0 +1,72 @@
+[gd_scene format=3 uid="uid://dt0qchp445sp7"]
+
+[ext_resource type="Script" uid="uid://b6x5qhixplolv" path="res://src/environment/traffic_light.gd" id="1_1w42a"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_k6kcw"]
+top_radius = 0.1
+bottom_radius = 0.1
+height = 1.2
+radial_segments = 16
+rings = 1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_k6kcw"]
+metallic = 1.0
+roughness = 0.75
+
+[sub_resource type="BoxMesh" id="BoxMesh_2ijik"]
+material = SubResource("StandardMaterial3D_k6kcw")
+size = Vector3(0.5, 1, 0.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vpyd8"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_2ijik"]
+material = SubResource("StandardMaterial3D_vpyd8")
+top_radius = 0.2
+bottom_radius = 0.2
+height = 0.1
+radial_segments = 32
+rings = 0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_foecb"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_wr7vf"]
+material = SubResource("StandardMaterial3D_foecb")
+top_radius = 0.2
+bottom_radius = 0.2
+height = 0.1
+radial_segments = 32
+rings = 0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2ijik"]
+size = Vector3(4, 1, 1)
+
+[node name="TrafficLight" type="Node3D" unique_id=661604078]
+script = ExtResource("1_1w42a")
+
+[node name="Pole" type="MeshInstance3D" parent="." unique_id=1665408230]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, -1)
+mesh = SubResource("CylinderMesh_k6kcw")
+
+[node name="Body" type="MeshInstance3D" parent="Pole" unique_id=1498439772]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+mesh = SubResource("BoxMesh_2ijik")
+
+[node name="RedLight" type="MeshInstance3D" parent="Pole/Body" unique_id=1931058415]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0.25, 0.3)
+mesh = SubResource("CylinderMesh_2ijik")
+
+[node name="GreenLight" type="MeshInstance3D" parent="Pole/Body" unique_id=1331470697]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, -0.25, 0.3)
+mesh = SubResource("CylinderMesh_wr7vf")
+
+[node name="ControlArea" type="Area3D" parent="." unique_id=1419621121]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ControlArea" unique_id=1601742056]
+shape = SubResource("BoxShape3D_2ijik")
+debug_color = Color(0.56078434, 1, 0, 1)
