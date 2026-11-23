@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://c7e1aw24qvuv3"]
+
+[ext_resource type="Script" uid="uid://bc0qti176w6s6" path="res://src/game.gd" id="1_agwfo"]
+[ext_resource type="PackedScene" uid="uid://bewnefd51q2qd" path="res://src/environment/test_platform.tscn" id="2_mtxgw"]
+[ext_resource type="PackedScene" uid="uid://cmc3qvxcmu5k6" path="res://src/environment/test_wall.tscn" id="3_m1t27"]
+[ext_resource type="PackedScene" uid="uid://bqh3dcopkvr54" path="res://src/environment/entrance.tscn" id="4_kqjb8"]
+[ext_resource type="PackedScene" uid="uid://bjg00ixkve11x" path="res://src/environment/exit.tscn" id="5_kqjb8"]
+
+[node name="MultipleEntrances" type="Node3D" unique_id=14416814]
+script = ExtResource("1_agwfo")
+metadata/_custom_type_script = "uid://bc0qti176w6s6"
+
+[node name="Level" type="Node3D" parent="." unique_id=813114701]
+
+[node name="Sun" type="DirectionalLight3D" parent="Level" unique_id=1406060814]
+transform = Transform3D(0.9605089, 0.068557285, -0.2696712, 0, 0.9691713, 0.24638802, 0.27824926, -0.23665787, 0.93089765, -10.346893, 4.430237, 8.961426)
+
+[node name="TestPlatform" parent="Level" unique_id=2103395743 instance=ExtResource("2_mtxgw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, -0.25, 0)
+
+[node name="TestPlatform2" parent="Level" unique_id=1911033185 instance=ExtResource("2_mtxgw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
+
+[node name="TestPlatform3" parent="Level" unique_id=2093161642 instance=ExtResource("2_mtxgw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, -0.25, 0)
+
+[node name="TestWall" parent="Level" unique_id=1225326320 instance=ExtResource("3_m1t27")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 1, 0)
+
+[node name="TestWall2" parent="Level" unique_id=1723653881 instance=ExtResource("3_m1t27")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.8250065, 1, 0)
+
+[node name="Entrance" parent="Level" unique_id=163626756 instance=ExtResource("4_kqjb8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, 0)
+
+[node name="Exit" parent="Level" unique_id=617829593 instance=ExtResource("5_kqjb8")]
