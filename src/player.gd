@@ -8,11 +8,26 @@ const EPSILON = 0.01
 var next_camera_position: Vector3
 var zoom_increment: float = 0.5
 
-var selected: Node3D
+var selection_material: StandardMaterial3D = preload("res://materials/selection.tres")
+
+var selected: Node3D:
+	set(value):
+		if selected != null:
+			(selected.main_mesh as MeshInstance3D).material_overlay = null
+		selected = value
+		if selected != null:
+			(selected.main_mesh as MeshInstance3D).material_overlay = selection_material
+		
 
 func interact_primary() -> void:
-	if selected != null and selected is Wheelchair and (selected as Wheelchair).current_state != Wheelchair.State.OVERRIDE:
-		(selected as Wheelchair).die()
+	if selected == null:
+		return
+	if selected is Wheelchair:
+		if game.strokens > selected.strike_cost:
+			if (selected as Wheelchair).strike():
+				game.strokens -= selected.strike_cost
+		else:
+			game.game_ui.tilt_label(game.game_ui.strokens_label)
 
 func _input(event: InputEvent) -> void:
 	

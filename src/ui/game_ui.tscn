@@ -16,17 +16,17 @@ layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="StrokensLabel" type="Label" parent="SidePanel" unique_id=784398876]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_font_sizes/font_size = 32
-text = "STOKENS"
-
 [node name="MayhemLabel" type="Label" parent="SidePanel" unique_id=1377490409]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "MAYHEM"
+
+[node name="StrokensLabel" type="Label" parent="SidePanel" unique_id=784398876]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "STOKENS"
 
 [node name="TimerLabel" type="Label" parent="SidePanel" unique_id=1279498726]
 unique_name_in_owner = true

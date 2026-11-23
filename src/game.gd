@@ -2,7 +2,7 @@ class_name Game
 extends Node3D
 
 @export var game_time: float = 300.0
-@export var initial_strokens: int = 100
+@export var initial_strokens: int = 0
 @export var player: Player
 
 var game_timer: Timer
