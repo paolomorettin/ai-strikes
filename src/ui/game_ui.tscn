@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://cnm41ules776w"]
 
 [ext_resource type="Script" uid="uid://dhljitlqdg6xt" path="res://src/ui/game_ui.gd" id="1_jlfe0"]
+[ext_resource type="PackedScene" uid="uid://b4tedin1c18y4" path="res://src/ui/object_info.tscn" id="2_r30kv"]
 
 [node name="GameUI" type="Control" unique_id=1179739631]
 layout_mode = 3
@@ -33,3 +34,13 @@ unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "TIMER"
+
+[node name="ObjectInfo" parent="." unique_id=791581058 instance=ExtResource("2_r30kv")]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -40.0
+offset_bottom = 0.0
+grow_vertical = 0
