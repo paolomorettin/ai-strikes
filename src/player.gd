@@ -12,19 +12,21 @@ var selection_material: StandardMaterial3D = preload("res://materials/selection.
 
 var selected: Node3D:
 	set(value):
-		if selected != null:
-			(selected.main_mesh as MeshInstance3D).material_overlay = null
+		if selected != null and "selection_overlay_meshes" in selected:
+			for meshinstance in selected.selection_overlay_meshes:
+				meshinstance.material_overlay = null
 		selected = value
-		if selected != null:
-			(selected.main_mesh as MeshInstance3D).material_overlay = selection_material
+		if selected != null and "selection_overlay_meshes" in selected:
+			for meshinstance in selected.selection_overlay_meshes:
+				meshinstance.material_overlay = selection_material
 		
 
 func interact_primary() -> void:
 	if selected == null:
 		return
-	if selected is Wheelchair:
+	if "strike_cost" in selected and selected.has_method("strike"):
 		if game.strokens > selected.strike_cost:
-			if (selected as Wheelchair).strike():
+			if selected.strike():
 				game.strokens -= selected.strike_cost
 		else:
 			game.game_ui.tilt_label(game.game_ui.strokens_label)
@@ -61,7 +63,7 @@ func _physics_process(delta: float) -> void:
 		
 func _raycast() -> void:
 	var space_state = get_world_3d().direct_space_state
-	var target_position = Plane(Vector3.BACK, Vector3.ZERO).intersects_ray(global_position, project_ray_normal(get_viewport().get_mouse_position()))
+	var target_position = Plane(Vector3.BACK, Vector3(0, 0, -game.size / 2)).intersects_ray(global_position, project_ray_normal(get_viewport().get_mouse_position()))
 	var collision_mask: int = 4 # i.e. only objects
 	var query = PhysicsRayQueryParameters3D.create(global_position, target_position, collision_mask)
 	var result = space_state.intersect_ray(query)

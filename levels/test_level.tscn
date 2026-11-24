@@ -4,10 +4,11 @@
 [ext_resource type="PackedScene" uid="uid://cmc3qvxcmu5k6" path="res://src/environment/test_wall.tscn" id="2_o6mel"]
 [ext_resource type="PackedScene" uid="uid://bjg00ixkve11x" path="res://src/environment/exit.tscn" id="3_e7anx"]
 [ext_resource type="PackedScene" uid="uid://bqh3dcopkvr54" path="res://src/environment/entrance.tscn" id="4_ur00s"]
+[ext_resource type="PackedScene" uid="uid://dt0qchp445sp7" path="res://src/environment/traffic_light.tscn" id="5_o6mel"]
 
 [sub_resource type="Environment" id="Environment_2ijik"]
 background_mode = 1
-background_color = Color(0.23647788, 0.35311705, 0.4477743, 1)
+background_color = Color(0.43078798, 0.27859604, 0.41120207, 1)
 ambient_light_source = 2
 ambient_light_color = Color(0, 0.57552904, 0.58318096, 1)
 
@@ -54,3 +55,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, -2, 0)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=82213991]
 environment = SubResource("Environment_2ijik")
+
+[node name="TrafficLight" parent="." unique_id=661604078 instance=ExtResource("5_o6mel")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="TrafficLight2" parent="." unique_id=1074457733 instance=ExtResource("5_o6mel")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 0)

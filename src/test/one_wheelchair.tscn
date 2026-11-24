@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://bc0qti176w6s6" path="res://src/game.gd" id="1_pqj8t"]
 [ext_resource type="PackedScene" uid="uid://bewnefd51q2qd" path="res://src/environment/test_platform.tscn" id="2_nqs0u"]
 [ext_resource type="PackedScene" uid="uid://cmc3qvxcmu5k6" path="res://src/environment/test_wall.tscn" id="3_camdw"]
-[ext_resource type="PackedScene" uid="uid://bhrjhrcee4267" path="res://src/people/wheelchair.tscn" id="4_vmhc4"]
+[ext_resource type="PackedScene" uid="uid://bhrjhrcee4267" path="res://src/wheelchair.tscn" id="4_vmhc4"]
 
 [node name="OneWC" type="Node3D" unique_id=1903358677]
 script = ExtResource("1_pqj8t")

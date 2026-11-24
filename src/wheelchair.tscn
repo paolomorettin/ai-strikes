@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bhrjhrcee4267"]
 
-[ext_resource type="Script" uid="uid://cefcumjs5pne" path="res://src/people/wheelchair.gd" id="1_4fiib"]
-[ext_resource type="Material" uid="uid://ctclq4hdt0vkn" path="res://materials/dark_metal.tres" id="2_s3t5s"]
+[ext_resource type="Script" uid="uid://cefcumjs5pne" path="res://src/wheelchair.gd" id="1_gytsc"]
+[ext_resource type="Material" uid="uid://ctclq4hdt0vkn" path="res://materials/dark_metal.tres" id="2_c61kh"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_s3t5s"]
 resource_local_to_scene = true
@@ -10,7 +10,7 @@ resource_local_to_scene = true
 size = Vector3(2, 1, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_2ijik"]
-material = ExtResource("2_s3t5s")
+material = ExtResource("2_c61kh")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2uo11"]
 resource_local_to_scene = true
@@ -24,7 +24,7 @@ size = Vector3(0.2, 0.2, 1)
 [node name="Wheelchair" type="CharacterBody3D" unique_id=262619796]
 collision_layer = 4
 collision_mask = 7
-script = ExtResource("1_4fiib")
+script = ExtResource("1_gytsc")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1746594853]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)

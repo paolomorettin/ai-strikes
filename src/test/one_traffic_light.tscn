@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://iwbdun042jer" path="res://src/test/one_traffic_light.gd" id="1_2cqee"]
 [ext_resource type="PackedScene" uid="uid://bewnefd51q2qd" path="res://src/environment/test_platform.tscn" id="2_rk63s"]
 [ext_resource type="PackedScene" uid="uid://cmc3qvxcmu5k6" path="res://src/environment/test_wall.tscn" id="3_r2t7q"]
-[ext_resource type="PackedScene" uid="uid://bhrjhrcee4267" path="res://src/people/wheelchair.tscn" id="4_4qnjq"]
+[ext_resource type="PackedScene" uid="uid://bhrjhrcee4267" path="res://src/wheelchair.tscn" id="4_4qnjq"]
 [ext_resource type="PackedScene" uid="uid://dt0qchp445sp7" path="res://src/environment/traffic_light.tscn" id="5_xehrg"]
 
 [node name="OneTL" type="Node3D" unique_id=14416814]

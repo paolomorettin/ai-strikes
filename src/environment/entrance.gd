@@ -27,7 +27,7 @@ func spawn() -> void:
 			return
 
 	is_spawning = true
-	last_spawned = preload("res://src/people/wheelchair.tscn").instantiate()
+	last_spawned = preload("res://src/wheelchair.tscn").instantiate()
 	var level: Node3D = get_parent()
 	last_spawned.position = level.to_local(spawn_point)
 	level.add_child(last_spawned)

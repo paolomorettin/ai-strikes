@@ -18,13 +18,22 @@ var strike_buffered: bool = false # needed for buffering a strike during an auto
 
 @onready var brake_lights: MeshInstance3D = %BrakeLights
 @onready var halt_timer: Timer = %HaltTimer
-@onready var main_mesh: MeshInstance3D = %MainMesh
 @onready var ttl_timer: Timer = %TTLTimer
 @onready var sensing: Area3D = %Sensing
 
-# particle factories
-var explosions = preload("res://particles/explosion.tscn")
-var sparks = preload("res://particles/sparks.tscn")
+
+# particles
+static var explosions = preload("res://particles/explosion.tscn")
+static var sparks = preload("res://particles/sparks.tscn")
+
+# materials
+static var no_light_material = preload("res://materials/no_light_material.tres")
+static var override_light_material = preload("res://materials/override_light_material.tres")
+static var red_light_material = preload("res://materials/red_light_material.tres")
+static var strike_light_material = preload("res://materials/strike_light_material.tres")
+
+var selection_overlay_meshes: Array[MeshInstance3D] = []
+
 
 enum State {
 	BRAKE, # braking
@@ -51,7 +60,7 @@ func die() -> void:
 	explosion.global_position = global_position
 	explosion.emitting = true
 	game.mayhem += mayhem_score
-	queue_free()
+	call_deferred("queue_free")
 	
 func strike() -> bool:
 	if current_state == State.OVERRIDE or current_state == State.STRIKE:
@@ -71,6 +80,9 @@ func strike() -> bool:
 		return true
 
 func turn_around() -> void:
+	if current_state == State.STRIKE:
+		return
+
 	current_state = State.ROTATE
 	var tween = get_tree().create_tween()
 	var rotated_quaternion: Quaternion = quaternion * Quaternion(Vector3.UP, TAU/2)
@@ -158,6 +170,9 @@ func _physics_process(delta: float) -> void:
 			quaternion = (Quaternion(up, floor_normal) * quaternion).normalized()
 
 func _ready() -> void:
+	
+	selection_overlay_meshes = [%MainMesh, %BrakeLights]
+	
 	brake_lights.mesh.material = StandardMaterial3D.new()
 	halt_timer.timeout.connect(turn_around)
 	ttl_timer.timeout.connect(die)
@@ -167,11 +182,11 @@ func _ready() -> void:
 
 func _set_brake_lights(state: State) -> void:
 	if state in [State.IDLE, State.MOVE]:
-		brake_lights.mesh.material.albedo_color = Color(0.2, 0.0, 0.0)
+		brake_lights.mesh.material = no_light_material
 	elif state in [State.BRAKE, State.ROTATE]:
-		brake_lights.mesh.material.albedo_color = Color(1.0, 0.0, 0.0)
+		brake_lights.mesh.material = red_light_material
 	elif state == State.OVERRIDE:
-		brake_lights.mesh.material.albedo_color = Color(0.0, 0.85, 0.7)
+		brake_lights.mesh.material = override_light_material
 	elif state == State.STRIKE:
-		brake_lights.mesh.material.albedo_color = Color(0.0, 0.85, 0.2)
+		brake_lights.mesh.material = strike_light_material
 		
