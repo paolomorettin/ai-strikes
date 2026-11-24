@@ -3,6 +3,7 @@ extends CharacterBody3D
 
 const THETA = deg_to_rad(5)
 
+static var time_to_live: float = 20.0 # s
 static var acceleration: float = 0.05 # m/s^2
 static var deceleration: float = 0.15 # m/s^2
 static var max_speed: float = 4.0 # m/s
@@ -17,10 +18,11 @@ var strike_buffered: bool = false # needed for buffering a strike during an auto
 @onready var game: Game = get_parent().get_parent()
 
 @onready var brake_lights: MeshInstance3D = %BrakeLights
-@onready var halt_timer: Timer = %HaltTimer
-@onready var ttl_timer: Timer = %TTLTimer
+@onready var halt_timer: Timer
+@onready var ttl_timer: Timer
 @onready var sensing: Area3D = %Sensing
 
+##### GRAPHICS
 
 # particles
 static var explosions = preload("res://particles/explosion.tscn")
@@ -33,6 +35,9 @@ static var red_light_material = preload("res://materials/red_light_material.tres
 static var strike_light_material = preload("res://materials/strike_light_material.tres")
 
 var selection_overlay_meshes: Array[MeshInstance3D] = []
+
+var spark_timer: Timer
+var spark_frequency: float = 0.2
 
 
 enum State {
@@ -62,6 +67,7 @@ func die() -> void:
 	game.score(mayhem_score)
 	call_deferred("queue_free")
 	
+
 func strike() -> bool:
 	if current_state == State.OVERRIDE or current_state == State.STRIKE:
 		return false
@@ -173,10 +179,35 @@ func _ready() -> void:
 	
 	selection_overlay_meshes = [%MainMesh, %BrakeLights]
 	
-	brake_lights.mesh.material = StandardMaterial3D.new()
+	#brake_lights.mesh.material = StandardMaterial3D.new()
+	
+	halt_timer = Timer.new()
+	add_child(halt_timer)
+	halt_timer.one_shot = true
+	halt_timer.wait_time = 2.0 # s
 	halt_timer.timeout.connect(turn_around)
+	
+	ttl_timer = Timer.new()
+	add_child(ttl_timer)
+	ttl_timer.one_shot = true
+	ttl_timer.wait_time = time_to_live
 	ttl_timer.timeout.connect(die)
 	ttl_timer.start()
+	
+	spark_timer = Timer.new()
+	add_child(spark_timer)
+	spark_timer.wait_time = spark_frequency
+	spark_timer.timeout.connect(
+		func ():
+			if randf() > (ttl_timer.time_left / time_to_live):
+				var spark: CPUParticles3D = sparks.instantiate()
+				spark.finished.connect(func(): spark.queue_free())
+				get_parent().add_child(spark)
+				spark.global_position = global_position + Vector3(randf_range(-0.5, 0.5), randf_range(-0.5, 0.5), randf_range(-0.5, 0.5))
+				spark.emitting = true
+				print("SPARK!")
+	)
+	spark_timer.start()
 	
 	current_state = State.IDLE
 

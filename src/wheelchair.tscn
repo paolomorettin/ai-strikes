@@ -41,16 +41,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0.5, 0)
 shape = SubResource("BoxShape3D_k6kcw")
 debug_color = Color(0, 0.6509804, 0.13725491, 0.91764706)
 
-[node name="HaltTimer" type="Timer" parent="." unique_id=2019891105]
-unique_name_in_owner = true
-wait_time = 2.0
-one_shot = true
-
-[node name="TTLTimer" type="Timer" parent="." unique_id=1660431023]
-unique_name_in_owner = true
-wait_time = 30.0
-one_shot = true
-
 [node name="MainMesh" type="MeshInstance3D" parent="." unique_id=508410517]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
