@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://b4tedin1c18y4"]
 
-[ext_resource type="Script" uid="uid://dt3y4ikf5ndmj" path="res://src/ui/object_info.gd" id="1_kq864"]
+[ext_resource type="Script" uid="uid://dt3y4ikf5ndmj" path="res://src/ui/strokens_ui.gd" id="1_kq864"]
 
 [node name="VBoxContainer" type="VBoxContainer" unique_id=646559443]
 offset_right = 40.0

@@ -17,6 +17,7 @@ config/icon="res://icon.svg"
 
 [display]
 
+window/size/mode=3
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 
@@ -26,7 +27,8 @@ folder_colors={
 "res://levels/": "green",
 "res://materials/": "blue",
 "res://particles/": "orange",
-"res://src/": "red"
+"res://src/": "red",
+"res://textures/": "pink"
 }
 
 [input]

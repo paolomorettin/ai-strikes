@@ -8,7 +8,7 @@ static var size: float = 100.0 # m
 @export var startup_delay: float = 2.0 # s
 
 @export var initial_time: float = 300.0 # s
-@export var initial_strokens: float = 100
+@export var initial_strokens: float = 10
 @export var strokens_per_second: float = 1.0 # 1/s
 
 
@@ -16,11 +16,16 @@ var game_timer: Timer
 var strokens_timer: Timer
 var game_ui: GameUI
 
-var mayhem: int = 0
+var mayhem: float = 0
+var max_mayhem: float = 100
 var strokens: float = initial_strokens
 
 func game_over() -> void:
 	queue_free()
+	
+func score(points: float) -> void:
+	mayhem += points
+	game_ui.tilt_control(game_ui.mayhem_bar)
 
 func _ready() -> void:
 	if player == null:

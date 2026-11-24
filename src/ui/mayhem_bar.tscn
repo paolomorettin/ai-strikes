@@ -1,0 +1,34 @@
+[gd_scene format=3 uid="uid://bxd3rk8g2rmp0"]
+
+[ext_resource type="Texture2D" uid="uid://r1yir3vw2orn" path="res://textures/bar_under.png" id="1_es8be"]
+[ext_resource type="Texture2D" uid="uid://by88redauq4gk" path="res://textures/bar_over.png" id="2_es8be"]
+[ext_resource type="Texture2D" uid="uid://cftyimr4edb8v" path="res://textures/mayhem_progress.png" id="3_hucba"]
+[ext_resource type="Script" uid="uid://c7c4lhn1rxqw7" path="res://src/ui/custom_bar.gd" id="4_hucba"]
+
+[node name="MayhemBar" type="TextureProgressBar" unique_id=165974500]
+size_flags_horizontal = 3
+max_value = 1.0
+step = 0.01
+value = 0.5
+stretch_margin_left = 10
+texture_under = ExtResource("1_es8be")
+texture_over = ExtResource("2_es8be")
+texture_progress = ExtResource("3_hucba")
+script = ExtResource("4_hucba")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=818068598]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="MarginContainer" unique_id=1352191675]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 18
+text = "MAYHEM!   "
+horizontal_alignment = 2

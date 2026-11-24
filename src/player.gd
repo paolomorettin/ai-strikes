@@ -29,7 +29,7 @@ func interact_primary() -> void:
 			if selected.strike():
 				game.strokens -= selected.strike_cost
 		else:
-			game.game_ui.tilt_label(game.game_ui.strokens_label)
+			game.game_ui.tilt_control(game.game_ui.strokens_info)
 
 func _input(event: InputEvent) -> void:
 	

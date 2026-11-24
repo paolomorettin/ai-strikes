@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 210 297"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
+   sodipodi:docname="ui_elements.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="1.5424223"
+     inkscape:cx="418.17342"
+     inkscape:cy="829.86353"
+     inkscape:window-width="1920"
+     inkscape:window-height="1008"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs2">
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient1686">
+      <stop
+         style="stop-color:#00ffc9;stop-opacity:1;"
+         offset="0"
+         id="stop1682" />
+      <stop
+         style="stop-color:#009bff;stop-opacity:1;"
+         offset="1"
+         id="stop1684" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient1615">
+      <stop
+         style="stop-color:#ffca00;stop-opacity:1;"
+         offset="0"
+         id="stop1611" />
+      <stop
+         style="stop-color:#ff0057;stop-opacity:1;"
+         offset="1"
+         id="stop1613" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient1686"
+       id="linearGradient1679"
+       gradientUnits="userSpaceOnUse"
+       x1="17.078953"
+       y1="166.3211"
+       x2="153.40711"
+       y2="166.3211"
+       gradientTransform="translate(0.3097426,-38.652541)" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient1615"
+       id="linearGradient1794"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(-0.36798537,-1.7141031)"
+       x1="17.078953"
+       y1="166.3211"
+       x2="153.40711"
+       y2="166.3211" />
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <g
+       id="g1495"
+       transform="translate(-3.3194093,-54.333035)">
+      <rect
+         style="fill:none;stroke:#000000;stroke-width:1.8;stroke-dasharray:none"
+         id="rect708-6"
+         width="136.32816"
+         height="11.808086"
+         x="17.388697"
+         y="139.59221"
+         rx="3.8549919"
+         ry="3.6403089" />
+      <text
+         xml:space="preserve"
+         style="font-weight:bold;font-size:11.2889px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';text-align:center;text-anchor:middle;fill:none;stroke:#000000;stroke-width:0;stroke-dasharray:none"
+         x="124.21683"
+         y="149.54332"
+         id="text1323-7"><tspan
+           sodipodi:role="line"
+           id="tspan1321-5"
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:11.2889px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';fill:#000000;stroke:none;stroke-width:0;stroke-dasharray:none"
+           x="124.21683"
+           y="149.54332">MAYHEM!</tspan></text>
+    </g>
+    <g
+       id="g2018"
+       inkscape:export-filename="../textures/time_progress.png"
+       inkscape:export-xdpi="50"
+       inkscape:export-ydpi="50">
+      <g
+         id="g1511"
+         transform="translate(0.62640762,17.82769)"
+         style="opacity:0">
+        <rect
+           style="fill:none;stroke:#000000;stroke-width:1.8;stroke-dasharray:none"
+           id="rect708"
+           width="136.32816"
+           height="11.808086"
+           x="16.762289"
+           y="103.93683"
+           rx="3.8549919"
+           ry="3.6403089" />
+        <text
+           xml:space="preserve"
+           style="font-weight:bold;font-size:11.2889px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';text-align:center;text-anchor:middle;fill:none;stroke:#000000;stroke-width:0;stroke-dasharray:none"
+           x="62.736244"
+           y="113.88794"
+           id="text1323"><tspan
+             sodipodi:role="line"
+             id="tspan1321"
+             style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:11.2889px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';fill:#000000;stroke:none;stroke-width:0;stroke-dasharray:none"
+             x="62.736244"
+             y="113.88794">TIME TO FIGHT!</tspan></text>
+      </g>
+      <rect
+         style="fill:url(#linearGradient1679);fill-opacity:1;stroke:none;stroke-width:1.8;stroke-dasharray:none"
+         id="rect708-5-9-7"
+         width="136.32816"
+         height="11.808086"
+         x="17.388697"
+         y="121.76452"
+         rx="3.8549919"
+         ry="3.6403089" />
+    </g>
+    <g
+       id="g2004"
+       inkscape:export-filename="../textures/bar_under.png"
+       inkscape:export-xdpi="50"
+       inkscape:export-ydpi="50">
+      <g
+         id="g1511-7"
+         transform="translate(0.34874337,71.458069)"
+         style="opacity:0">
+        <rect
+           style="fill:none;stroke:#000000;stroke-width:1.8;stroke-dasharray:none"
+           id="rect708-5"
+           width="136.32816"
+           height="11.808086"
+           x="16.762289"
+           y="103.93683"
+           rx="3.8549919"
+           ry="3.6403089" />
+        <text
+           xml:space="preserve"
+           style="font-weight:bold;font-size:11.2889px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';text-align:center;text-anchor:middle;fill:none;stroke:#000000;stroke-width:0;stroke-dasharray:none"
+           x="62.736244"
+           y="113.88794"
+           id="text1323-92"><tspan
+             sodipodi:role="line"
+             id="tspan1321-28"
+             style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:11.2889px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';fill:#000000;stroke:none;stroke-width:0;stroke-dasharray:none"
+             x="62.736244"
+             y="113.88794">TIME TO FIGHT!</tspan></text>
+      </g>
+      <rect
+         style="fill:#808080;fill-opacity:0.5;stroke:none;stroke-width:1.8;stroke-dasharray:none"
+         id="rect708-5-9-7-9"
+         width="136.32816"
+         height="11.808086"
+         x="17.111032"
+         y="175.3949"
+         rx="3.8549919"
+         ry="3.6403089" />
+    </g>
+    <g
+       id="g1511-8"
+       transform="translate(-1.1358171,-0.42498233)"
+       inkscape:export-filename="../textures/time_over.png"
+       inkscape:export-xdpi="100"
+       inkscape:export-ydpi="100">
+      <rect
+         style="fill:none;stroke:#000000;stroke-width:1.8;stroke-dasharray:none"
+         id="rect708-7"
+         width="136.32816"
+         height="11.808086"
+         x="16.762289"
+         y="103.93683"
+         rx="3.8549919"
+         ry="3.6403089" />
+      <text
+         xml:space="preserve"
+         style="font-weight:bold;font-size:11.2889px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';text-align:center;text-anchor:middle;fill:none;stroke:#000000;stroke-width:0;stroke-dasharray:none"
+         x="62.736244"
+         y="113.88794"
+         id="text1323-9"><tspan
+           sodipodi:role="line"
+           id="tspan1321-2"
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:11.2889px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';fill:#000000;stroke:none;stroke-width:0;stroke-dasharray:none"
+           x="62.736244"
+           y="113.88794">TIME TO FIGHT!</tspan></text>
+    </g>
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:1.8;stroke-dasharray:none"
+       id="rect708-7-3"
+       width="136.32816"
+       height="11.808086"
+       x="17.111032"
+       y="194.69708"
+       rx="3.8549919"
+       ry="3.6403089"
+       inkscape:export-filename="../textures/bar_over.png"
+       inkscape:export-xdpi="50"
+       inkscape:export-ydpi="50" />
+    <rect
+       style="fill:#808080;stroke:#000000;stroke-width:1.8;stroke-dasharray:none;fill-opacity:0.5"
+       id="rect708-7-3-2"
+       width="60.484058"
+       height="25.207771"
+       x="18.115231"
+       y="223.74451"
+       rx="7.209475"
+       ry="7.7712913"
+       inkscape:export-filename="../textures/box.png"
+       inkscape:export-xdpi="50"
+       inkscape:export-ydpi="50" />
+    <g
+       id="g2011"
+       inkscape:export-filename="../textures/mayhem_progress.png"
+       inkscape:export-xdpi="50"
+       inkscape:export-ydpi="50">
+      <g
+         id="g1495-3"
+         transform="translate(-0.67772675,19.110718)"
+         style="opacity:0">
+        <rect
+           style="fill:none;stroke:#000000;stroke-width:1.8;stroke-dasharray:none"
+           id="rect708-6-6"
+           width="136.32816"
+           height="11.808086"
+           x="17.388697"
+           y="139.59221"
+           rx="3.8549919"
+           ry="3.6403089" />
+        <text
+           xml:space="preserve"
+           style="font-weight:bold;font-size:11.2889px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';text-align:center;text-anchor:middle;fill:none;stroke:#000000;stroke-width:0;stroke-dasharray:none"
+           x="124.21683"
+           y="149.54332"
+           id="text1323-7-0"><tspan
+             sodipodi:role="line"
+             id="tspan1321-5-6"
+             style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:11.2889px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';fill:#000000;stroke:none;stroke-width:0;stroke-dasharray:none"
+             x="124.21683"
+             y="149.54332">MAYHEM!</tspan></text>
+      </g>
+      <rect
+         style="fill:url(#linearGradient1794);fill-opacity:1;stroke:none;stroke-width:1.8;stroke-dasharray:none"
+         id="rect708-5-9-2"
+         width="136.32816"
+         height="11.808086"
+         x="16.71097"
+         y="158.70293"
+         rx="3.8549919"
+         ry="3.6403089" />
+    </g>
+  </g>
+</svg>

@@ -42,6 +42,8 @@ func change_lights() -> void:
 		dispatch()
 
 func control_traffic(body: Node3D) -> void:
+	if not is_instance_valid(body):
+		return
 	
 	if (body is Wheelchair) and not is_green:
 		if len(queue) == 0 or (len(queue) < queue_size and (body as Wheelchair).facing.x * queue[0].facing.x > 0):

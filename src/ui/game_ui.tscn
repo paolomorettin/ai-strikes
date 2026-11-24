@@ -1,7 +1,9 @@
 [gd_scene format=3 uid="uid://cnm41ules776w"]
 
 [ext_resource type="Script" uid="uid://dhljitlqdg6xt" path="res://src/ui/game_ui.gd" id="1_jlfe0"]
-[ext_resource type="PackedScene" uid="uid://b4tedin1c18y4" path="res://src/ui/object_info.tscn" id="2_r30kv"]
+[ext_resource type="PackedScene" uid="uid://bxd3rk8g2rmp0" path="res://src/ui/mayhem_bar.tscn" id="3_jdnd6"]
+[ext_resource type="PackedScene" uid="uid://bvk3juwjgmo3t" path="res://src/ui/time_bar.tscn" id="3_uoilq"]
+[ext_resource type="Texture2D" uid="uid://ddpa71uk6khsc" path="res://textures/box.png" id="5_blig7"]
 
 [node name="GameUI" type="Control" unique_id=1179739631]
 layout_mode = 3
@@ -12,35 +14,101 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_jlfe0")
 
-[node name="SidePanel" type="VBoxContainer" parent="." unique_id=22718019]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="MayhemLabel" type="Label" parent="SidePanel" unique_id=1377490409]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_font_sizes/font_size = 32
-text = "MAYHEM"
-
-[node name="StrokensLabel" type="Label" parent="SidePanel" unique_id=784398876]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_font_sizes/font_size = 32
-text = "STOKENS"
-
-[node name="TimerLabel" type="Label" parent="SidePanel" unique_id=1279498726]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_font_sizes/font_size = 32
-text = "TIMER"
-
-[node name="ObjectInfo" parent="." unique_id=791581058 instance=ExtResource("2_r30kv")]
-unique_name_in_owner = true
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1219240970]
 layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
+offset_right = 292.0
+offset_bottom = 78.0
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=1875296323]
+layout_mode = 2
+
+[node name="TimeBar" parent="MarginContainer/VBoxContainer" unique_id=165974500 instance=ExtResource("3_uoilq")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="MayhemBar" parent="MarginContainer/VBoxContainer" unique_id=1511800335 instance=ExtResource("3_jdnd6")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="." unique_id=1361099498]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -292.0
+offset_bottom = 78.0
+grow_horizontal = 0
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="StrokensUI" type="HBoxContainer" parent="MarginContainer2" unique_id=1067327732]
+layout_mode = 2
+
+[node name="ObjectInfo" type="TextureRect" parent="MarginContainer2/StrokensUI" unique_id=1694902525]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("5_blig7")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer2/StrokensUI/ObjectInfo" unique_id=748420362]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -40.0
-offset_bottom = 0.0
-grow_vertical = 0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="NameLabel" type="Label" parent="MarginContainer2/StrokensUI/ObjectInfo/VBoxContainer" unique_id=1856330526]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 16
+text = "Petty Human"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="StrikeLabel" type="Label" parent="MarginContainer2/StrokensUI/ObjectInfo/VBoxContainer" unique_id=984897480]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 18
+text = "35"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="StrokensInfo" type="TextureRect" parent="MarginContainer2/StrokensUI" unique_id=840700756]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("5_blig7")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer2/StrokensUI/StrokensInfo" unique_id=537027637]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="MarginContainer2/StrokensUI/StrokensInfo/VBoxContainer" unique_id=471035557]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 16
+text = "STROKENS"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="StrokensLabel" type="Label" parent="MarginContainer2/StrokensUI/StrokensInfo/VBoxContainer" unique_id=571436458]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 18
+text = "1000000"
+horizontal_alignment = 1
+vertical_alignment = 1

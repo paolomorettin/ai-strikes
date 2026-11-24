@@ -59,7 +59,7 @@ func die() -> void:
 	get_parent().add_child(explosion)
 	explosion.global_position = global_position
 	explosion.emitting = true
-	game.mayhem += mayhem_score
+	game.score(mayhem_score)
 	call_deferred("queue_free")
 	
 func strike() -> bool:
