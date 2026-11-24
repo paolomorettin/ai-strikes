@@ -39,7 +39,9 @@ var current_state: State:
 		current_state = state
 		_set_brake_lights(state)
 
-var facing: Vector3 = Vector3.RIGHT
+# normalized direction vectors updated during '_physics_process'
+var facing: Vector3
+var up: Vector3
 
 
 func die() -> void:
@@ -82,10 +84,13 @@ func turn_around() -> void:
 
 func _physics_process(delta: float) -> void:
 
-	# update the facing vector
-	facing = (quaternion * Vector3.RIGHT).normalized()
+	##### update the facing and up vector
 
-	# on the move, autonomously
+	facing = (quaternion * Vector3.RIGHT).normalized()
+	up = (quaternion * Vector3.UP).normalized()
+
+	##### handle autonomous movement state transition
+
 	if not current_state in [State.OVERRIDE, State.ROTATE, State.STRIKE]:
 		
 		# TODO: this better be handled via signals / attributes rather than cycling all overlapping bodies
@@ -114,7 +119,11 @@ func _physics_process(delta: float) -> void:
 			if current_state != State.BRAKE:
 				current_state = State.BRAKE
 
-	if is_on_floor():
+	##### set physical quantities
+
+	var was_flying: bool = not is_on_floor()
+	
+	if not was_flying:
 		# handle horizontal velocity
 		if current_state == State.BRAKE:
 			if abs(velocity.x) > 0:
@@ -130,13 +139,23 @@ func _physics_process(delta: float) -> void:
 			velocity.x = 0.0
 
 	else:
-		velocity += get_gravity()
+		velocity += get_gravity() * delta
+		
 	
+	var velocity_y_delta: float = velocity.y
 	move_and_slide()
+	
+	# impact with floor
+	if was_flying and is_on_floor():
+		prints("velocity_y_delta at impact", velocity_y_delta)
+		if abs(velocity_y_delta) > abs(get_gravity().y) * 1.0:
+			die()
+		
+	# adjust the up direction wrt the floor
 	if is_on_floor() and current_state != State.ROTATE:
 		var floor_normal: Vector3 = get_floor_normal()
-		if floor_normal.angle_to(quaternion * Vector3.UP) > THETA:
-			quaternion = (Quaternion(Vector3.UP, floor_normal) * quaternion).normalized()
+		if floor_normal.angle_to(up) > THETA:
+			quaternion = (Quaternion(up, floor_normal) * quaternion).normalized()
 
 func _ready() -> void:
 	brake_lights.mesh.material = StandardMaterial3D.new()

@@ -12,18 +12,19 @@ metadata/_custom_type_script = "uid://bc0qti176w6s6"
 [node name="Level" type="Node3D" parent="." unique_id=2134422734]
 
 [node name="Sun" type="DirectionalLight3D" parent="Level" unique_id=1406060814]
-transform = Transform3D(0.9605089, 0.068557285, -0.2696712, 0, 0.9691713, 0.24638802, 0.27824926, -0.23665787, 0.93089765, -5.3468933, 4.430237, 8.961426)
+transform = Transform3D(0.9605089, 0.068557285, -0.2696712, 0, 0.9691713, 0.24638802, 0.27824926, -0.23665787, 0.93089765, -6.6637497, 3.4563837, 8.961426)
 
 [node name="TestPlatform" parent="Level" unique_id=2103395743 instance=ExtResource("2_nqs0u")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, -0.25, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.3168564, 2.3714294, 0)
 
 [node name="TestPlatform2" parent="Level" unique_id=1911033185 instance=ExtResource("2_nqs0u")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, -0.25, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.4262733, 1.253953, 0)
+
+[node name="TestPlatform3" parent="Level" unique_id=1503262657 instance=ExtResource("2_nqs0u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.9931602, -4.3361464, 0)
 
 [node name="TestWall" parent="Level" unique_id=1225326320 instance=ExtResource("3_camdw")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 1, 0)
-
-[node name="TestWall2" parent="Level" unique_id=1723653881 instance=ExtResource("3_camdw")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.8250065, 1, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.316856, 3.6019363, 0)
 
 [node name="Wheelchair" parent="Level" unique_id=262619796 instance=ExtResource("4_vmhc4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.3168564, 2.6019363, 0)
