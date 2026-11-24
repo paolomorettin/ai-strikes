@@ -54,7 +54,7 @@ func die() -> void:
 func strike() -> bool:
 	if current_state == State.OVERRIDE or current_state == State.STRIKE:
 		return false
-	elif current_state == State.ROTATE:
+	elif current_state == State.ROTATE and not strike_buffered:
 		strike_buffered = true
 		return true
 	else:

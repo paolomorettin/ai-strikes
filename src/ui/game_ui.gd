@@ -24,7 +24,7 @@ func tilt_label(label: Label) -> void:
 
 func _process(delta: float) -> void:
 	mayhem_label.text = "MAHYEM " + str(game.mayhem)
-	strokens_label.text = "STROKENS " + str(game.strokens)
+	strokens_label.text = "STROKENS %05d" % int(game.strokens)
 	var minutes: int = int(game.game_timer.time_left) / 60
 	var seconds: int = int(game.game_timer.time_left) % 60
 	timer_label.text = ("%02d" % minutes) + ":" + ("%02d" % seconds)
