@@ -12,6 +12,8 @@ static var mayhem_score: int = 10
 static var strike_cost: int = 15
 static var strike_turn_arounds: int = 8 # happening twice as fast wrt 'turn_around_time'
 
+var strike_buffered: bool = false # needed for buffering a strike during an autonomous rotation
+
 @onready var game: Game = get_parent().get_parent()
 
 @onready var brake_lights: MeshInstance3D = %BrakeLights
@@ -50,8 +52,11 @@ func die() -> void:
 	queue_free()
 	
 func strike() -> bool:
-	if current_state == State.OVERRIDE:
+	if current_state == State.OVERRIDE or current_state == State.STRIKE:
 		return false
+	elif current_state == State.ROTATE:
+		strike_buffered = true
+		return true
 	else:
 		current_state = State.STRIKE
 		var tween: Tween = get_tree().create_tween()
@@ -68,7 +73,12 @@ func turn_around() -> void:
 	var tween = get_tree().create_tween()
 	var rotated_quaternion: Quaternion = quaternion * Quaternion(Vector3.UP, TAU/2)
 	tween.tween_property(self, "quaternion", rotated_quaternion, turn_around_time)
-	tween.tween_callback(func(): current_state = State.IDLE)
+	tween.tween_callback(func(): 
+		current_state = State.IDLE
+		if strike_buffered:
+			strike_buffered = false
+			strike()
+	)
 
 func _physics_process(delta: float) -> void:
 
