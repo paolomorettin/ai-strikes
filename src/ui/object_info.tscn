@@ -1,11 +1,21 @@
 [gd_scene format=3 uid="uid://b4tedin1c18y4"]
 
-[ext_resource type="Script" uid="uid://dt3y4ikf5ndmj" path="res://src/ui/strokens_ui.gd" id="1_kq864"]
+[sub_resource type="GDScript" id="GDScript_fj0tu"]
+script/source = "class_name StrokensUI
+extends Control
+
+@onready var game_ui: GameUI = get_parent()
+
+func _process(_delta: float) -> void:
+
+		
+		
+"
 
 [node name="VBoxContainer" type="VBoxContainer" unique_id=646559443]
 offset_right = 40.0
 offset_bottom = 40.0
-script = ExtResource("1_kq864")
+script = SubResource("GDScript_fj0tu")
 
 [node name="NameLabel" type="Label" parent="." unique_id=1979779192]
 unique_name_in_owner = true

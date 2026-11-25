@@ -199,13 +199,18 @@ func _ready() -> void:
 	spark_timer.wait_time = spark_frequency
 	spark_timer.timeout.connect(
 		func ():
-			if randf() > (ttl_timer.time_left / time_to_live):
+			var ttl_ratio: float = ttl_timer.time_left / time_to_live # [0, 1]
+			if randf() > (ttl_ratio + 0.5): # doesn't spark above 50% life
 				var spark: CPUParticles3D = sparks.instantiate()
 				spark.finished.connect(func(): spark.queue_free())
 				get_parent().add_child(spark)
-				spark.global_position = global_position + Vector3(randf_range(-0.5, 0.5), randf_range(-0.5, 0.5), randf_range(-0.5, 0.5))
+				var spark_offset: Vector3 = Vector3(
+					randf_range(-0.5, 0.5), 
+					randf_range(-0.5, 0.5), 
+					randf_range(-0.5, 0.5)
+				)
+				spark.global_position = global_position + spark_offset
 				spark.emitting = true
-				print("SPARK!")
 	)
 	spark_timer.start()
 	
