@@ -1,31 +1,36 @@
 [gd_scene format=3 uid="uid://bd57f7lbtgily"]
 
 [ext_resource type="Script" uid="uid://b873sgwn0sv42" path="res://src/environment/moving_platform.gd" id="1_6cowk"]
+[ext_resource type="Material" uid="uid://drbfjk5ewudm4" path="res://materials/light_metal.tres" id="2_wrxxq"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_2ijik"]
-size = Vector3(2, 1, 2)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_k6kcw"]
-albedo_color = Color(0, 0.20155153, 0.20205522, 1)
+size = Vector3(2, 0.5, 2)
 
 [sub_resource type="BoxMesh" id="BoxMesh_2ijik"]
-material = SubResource("StandardMaterial3D_k6kcw")
-size = Vector3(2, 1, 2)
+material = ExtResource("2_wrxxq")
+size = Vector3(2, 0.5, 2)
 
-[node name="MovingPlatform" type="Node3D" unique_id=325477302]
+[sub_resource type="BoxShape3D" id="BoxShape3D_k6kcw"]
+size = Vector3(2, 1, 1)
+
+[node name="MovingPlatform" type="AnimatableBody3D" unique_id=1700442084]
+collision_mask = 4
 script = ExtResource("1_6cowk")
 
-[node name="Platform" type="AnimatableBody3D" parent="." unique_id=1700442084]
-unique_name_in_owner = true
-collision_mask = 4
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Platform" unique_id=388054789]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=388054789]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
 shape = SubResource("BoxShape3D_2ijik")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Platform/CollisionShape3D" unique_id=1710213209]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3D" unique_id=1710213209]
+unique_name_in_owner = true
 mesh = SubResource("BoxMesh_2ijik")
 
-[node name="IdleTimer" type="Timer" parent="." unique_id=1539432264]
+[node name="ControlArea" type="Area3D" parent="." unique_id=1411781836]
 unique_name_in_owner = true
-wait_time = 3.0
-one_shot = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ControlArea" unique_id=133208812]
+shape = SubResource("BoxShape3D_k6kcw")
+debug_color = Color(0.98775524, 0, 0.24948329, 1)

@@ -1,82 +1,128 @@
 class_name MovingPlatform
 extends AnimatableBody3D
 
-enum Mode {LEFT_LEFT, LEFT_RIGHT, RIGHT_LEFT, RIGHT_RIGHT}
+const EPSILON = 0.01
 
-enum State {OPEN, CLOSED, MOVING}
+const PARKING_SPACE = 1.3
+
+enum Direction {LEFT, RIGHT}
+
+enum State {UNLOAD, LOAD, MOVING, STRIKE}
 var current_state: State
 
+@export var stops: Array[MovingPlatformStop]
+@export var traffic_lights: Array[TrafficLight]
+@export var max_speed: float = 3.0 # m/s
 
-@export var mode: Mode = Mode.LEFT_LEFT
-@export var endpoint: Vector3
-@export var travel_speed: float = 3.0 # m/s
+@onready var control_area: Area3D = %ControlArea
 
-@onready var idle_timer: Timer = %IdleTimer
-@onready var platform: AnimatableBody3D = %Platform
+var current_stop: int = 0
+var idle_timer: Timer
+var queue: Array[Wheelchair]
+var queue_size: int
 
-var endpoints_distance: float
-var startpoint: Vector3
+##### GRAPHICS
 
-var platform_size: float
-var control_areas: Array[Area3D]
-var queues: Array
-var max_queue_size: int
+@onready var selection_overlay_meshes: Array[MeshInstance3D] = [%MeshInstance3D]
 
-func control_body(area_index: int, body: Node3D) -> void:
+func depart():
+	var current_traffic_light = traffic_lights[current_stop]
+	if current_traffic_light != null:
+		current_traffic_light.turn_red()
+	
+	current_state = State.MOVING
+	(selection_overlay_meshes[0].get_active_material(0) as StandardMaterial3D).albedo_color = Color.RED
+	current_stop = (current_stop + 1) % len(stops)
+
+func load_platform() -> void:
+	current_state = State.LOAD
+	(selection_overlay_meshes[0].get_active_material(0) as StandardMaterial3D).albedo_color = Color.GREEN
+	idle_timer.wait_time = stops[current_stop].idle_time
+	idle_timer.start()
+
+
+func unload_platform() -> void:
+	var current_traffic_light = traffic_lights[current_stop]
+	if current_traffic_light != null:
+		current_traffic_light.turn_green()
+
+	if len(queue) > 0 :
+		current_state = State.UNLOAD
+		(selection_overlay_meshes[0].get_active_material(0) as StandardMaterial3D).albedo_color = Color.BLUE
+		for wc in queue:
+			if is_instance_valid(wc):
+				wc.current_state = Wheelchair.State.MOVE
+	else:
+		load_platform()
+		
+func park(wheelchair: Wheelchair) -> void:
+	queue.append(wheelchair)
+	wheelchair.current_state = Wheelchair.State.OVERRIDE
+	
+	# compute parking position and duration
+	var offset: float = (len(queue) - 0.5) * PARKING_SPACE
+	var target_x: float
+	if wheelchair.facing.x > 0:
+		target_x = control_area.global_position.x + queue_size * PARKING_SPACE / 2 - offset
+	else:
+		target_x = control_area.global_position.x - queue_size * PARKING_SPACE / 2 + offset
+		
+	var parking_duration: float = 2 * abs(target_x - wheelchair.global_position.x) / wheelchair.max_speed
+		
+	var tween: Tween = get_tree().create_tween()
+	tween.tween_property(wheelchair, "position:x", target_x, parking_duration)
+
+func _body_entered(body: Node3D) -> void:
+	if not (body is Wheelchair) or current_state != State.LOAD:
+		return
+	
+	var wc: Wheelchair = body as Wheelchair
+	if len(queue) < queue_size:
+		
+		if (
+			(stops[current_stop].load_direction == Direction.LEFT and wc.facing.x > 0) or 
+			(stops[current_stop].load_direction == Direction.RIGHT and wc.facing.x < 0)
+		):
+			park(wc)
+		else:
+			wc.turn_around()
+
+func _body_exited(body: Node3D) -> void:
 	if not (body is Wheelchair):
 		return
 		
-	var wc: Wheelchair = body
-	
-	wc.current_state = Wheelchair.State.OVERRIDE
-	
-func move() -> void:
-	current_state = State.MOVING
-	var tween = get_tree().create_tween()
-	var target_position: Vector3
-	if platform.position == startpoint:
-		target_position = endpoint
-	elif platform.position == endpoint:
-		target_position = startpoint
-	
-	# TODO: change to something more smooth
-	tween.tween_property(platform, "position", target_position, endpoints_distance / travel_speed)
-	tween.tween_callback(unload_platform)
+	queue.erase(body)
+	if len(queue) == 0 and current_state == State.UNLOAD:
+		load_platform()
 
-func load_platform() -> void:
-	pass
+func _physics_process(delta: float) -> void:
 	
-func unload_platform() -> void:
-	pass
-
+	var velocity: Vector3 = Vector3.ZERO
+	
+	if current_state == State.MOVING:
+		var current_stop_position: Vector3 = stops[current_stop].position
+		var current_stop_distance: float = global_position.distance_to(current_stop_position)
+		if current_stop_distance < EPSILON:
+			global_position = current_stop_position
+			unload_platform()
+		else:
+			var current_stop_direction: Vector3 = (current_stop_position - global_position) / current_stop_distance
+			velocity = current_stop_direction * clampf(current_stop_distance, EPSILON / delta, max_speed) * delta
+			position += velocity
+			
 func _ready() -> void:
-	startpoint = position
-	endpoints_distance = startpoint.distance_to(endpoint)
+	while len(stops) > len(traffic_lights):
+		traffic_lights.append(null)
 	
-	# TODO: change
-	platform_size = ((platform.get_child(0) as CollisionShape3D).shape as BoxShape3D).size.x
+	control_area.body_entered.connect(_body_entered)
+	control_area.body_exited.connect(_body_exited)
+	idle_timer = Timer.new()
+	add_child(idle_timer)
+	idle_timer.one_shot = true
+	idle_timer.timeout.connect(depart)
 	
-	# initialize (start/end/platform) queues
-	queues = [[], [], []]
+	# compute queue size based on the control area size
+	var control_area_size = (control_area.get_child(0).shape as BoxShape3D).size.x
+	queue_size = int(control_area_size / PARKING_SPACE)
 	
-	# initialize control areas and shapes
-	var extreme_points: Array[Vector3] = [startpoint, endpoint]
-	var sides: Array[int]
-	match mode:
-		Mode.LEFT_LEFT: sides = [-1, -1]
-		Mode.LEFT_RIGHT: sides = [-1, 1]
-		Mode.RIGHT_LEFT: sides = [1, -1]
-		Mode.RIGHT_RIGHT: sides = [1, 1]
-	
-	for i in range(2):
-		var control_area = Area3D.new()
-		add_child(control_area)
-		control_area.position = extreme_points[i]
-		control_areas.append(control_area)
-		control_area.body_entered.connect(func (body): control_body(i, body))
-
-		var collision_shape = CollisionShape3D.new()
-		control_area.add_child(collision_shape)
-		collision_shape.position.x += sides[i] * platform_size
-		collision_shape.shape = BoxShape3D.new()
-		(collision_shape.shape as BoxShape3D).size = Vector3(platform_size, 1.0, 1.0)
+	current_state = State.MOVING

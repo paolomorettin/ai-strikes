@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://djslpvnaemdyv"]
+[gd_scene format=3 uid="uid://bcry22nbgv08t"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s3t5s"]
 vertex_color_use_as_albedo = true
@@ -20,7 +20,7 @@ point_count = 3
 [sub_resource type="Gradient" id="Gradient_fxo6m"]
 colors = PackedColorArray(1, 0.69411767, 0, 1, 0.95480233, 0.349068, 1.92523e-07, 0.7372549)
 
-[node name="Explosion" type="CPUParticles3D" unique_id=398303584]
+[node name="ExplosionParticle" type="CPUParticles3D" unique_id=398303584]
 emitting = false
 amount = 30
 one_shot = true

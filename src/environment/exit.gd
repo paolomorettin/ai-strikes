@@ -35,7 +35,12 @@ func serve(wheelchair: Wheelchair) -> void:
 	tween.tween_property(wheelchair, "quaternion", target_quaternion, wheelchair.turn_around_time / 2.0)
 	# z-movement to exit
 	tween.tween_property(wheelchair, "global_position:z", despawn_point.z, despawn_duration)
-	tween.tween_callback(func (): wheelchair.queue_free(); is_despawning = false)
+	tween.tween_callback(
+		func (): 
+			if is_instance_valid(wheelchair):
+				wheelchair.queue_free() 
+			is_despawning = false
+	)
 	
 
 func _ready() -> void:

@@ -9,6 +9,9 @@ static var deceleration: float = 0.15 # m/s^2
 static var max_speed: float = 4.0 # m/s
 static var turn_around_time: float = 1.0 # TAU/2*s
 
+static var explosion_radius: float = 3.0 # m
+static var explosion_speed: float = 9.0 # m/s
+
 static var mayhem_score: int = 10
 static var strike_cost: int = 15
 static var strike_turn_arounds: int = 8 # happening twice as fast wrt 'turn_around_time'
@@ -25,8 +28,7 @@ var strike_buffered: bool = false # needed for buffering a strike during an auto
 ##### GRAPHICS
 
 # particles
-static var explosions = preload("res://particles/explosion.tscn")
-static var sparks = preload("res://particles/sparks.tscn")
+static var spark_particles = preload("res://particles/sparks.tscn")
 
 # materials
 static var no_light_material = preload("res://materials/no_light_material.tres")
@@ -59,11 +61,10 @@ var up: Vector3
 
 
 func die() -> void:
-	var explosion: CPUParticles3D = explosions.instantiate()
-	explosion.finished.connect(func(): explosion.queue_free())
+	var explosion := Explosion.new(global_position, Wheelchair.explosion_radius, Wheelchair.explosion_speed)
 	get_parent().add_child(explosion)
-	explosion.global_position = global_position
-	explosion.emitting = true
+
+	# score and cleanup
 	game.score(mayhem_score)
 	call_deferred("queue_free")
 	
@@ -165,7 +166,6 @@ func _physics_process(delta: float) -> void:
 	
 	# impact with floor
 	if was_flying and is_on_floor():
-		prints("velocity_y_delta at impact", velocity_y_delta)
 		if abs(velocity_y_delta) > abs(get_gravity().y) * 1.0:
 			die()
 		
@@ -190,7 +190,7 @@ func _ready() -> void:
 	ttl_timer = Timer.new()
 	add_child(ttl_timer)
 	ttl_timer.one_shot = true
-	ttl_timer.wait_time = time_to_live
+	ttl_timer.wait_time = Wheelchair.time_to_live
 	ttl_timer.timeout.connect(die)
 	ttl_timer.start()
 	
@@ -201,16 +201,16 @@ func _ready() -> void:
 		func ():
 			var ttl_ratio: float = ttl_timer.time_left / time_to_live # [0, 1]
 			if randf() > (ttl_ratio + 0.5): # doesn't spark above 50% life
-				var spark: CPUParticles3D = sparks.instantiate()
-				spark.finished.connect(func(): spark.queue_free())
-				get_parent().add_child(spark)
+				var spark_particle: CPUParticles3D = spark_particles.instantiate()
+				spark_particle.finished.connect(func(): spark_particle.queue_free())
+				get_parent().add_child(spark_particle)
 				var spark_offset: Vector3 = Vector3(
 					randf_range(-0.5, 0.5), 
 					randf_range(-0.5, 0.5), 
 					randf_range(-0.5, 0.5)
 				)
-				spark.global_position = global_position + spark_offset
-				spark.emitting = true
+				spark_particle.global_position = global_position + spark_offset
+				spark_particle.emitting = true
 	)
 	spark_timer.start()
 	
