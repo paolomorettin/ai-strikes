@@ -43,6 +43,13 @@ func _process(_delta: float) -> void:
 		if selected is TrafficLight:
 			%NameLabel.text = "Traffic Light"
 			%StrikeLabel.text = "FREEZE (%d)" % selected.strike_cost
+		if selected is MovingPlatform:
+			%NameLabel.text = "Moving Platform"
+			%StrikeLabel.text = "SKIP DESTINATION (%d)" % selected.strike_cost
+		else:
+			assert(false)
 	else:
+		%NameLabel.text = ""
+		%StrikeLabel.text = ""
 		%ObjectInfo.modulate.a = 0.0
 	

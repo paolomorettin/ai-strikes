@@ -6,9 +6,10 @@ const EPSILON = 0.01
 const PARKING_SPACE = 1.3
 
 enum Direction {LEFT, RIGHT}
+enum State {UNLOAD, LOAD, MOVE, STRIKE}
 
-enum State {UNLOAD, LOAD, MOVING, STRIKE}
-var current_state: State
+static var strike_cost: int = 5
+static var strike_duration: float = 5.0 # s
 
 @export var stops: Array[MovingPlatformStop]
 @export var traffic_lights: Array[TrafficLight]
@@ -16,27 +17,34 @@ var current_state: State
 
 @onready var control_area: Area3D = %ControlArea
 
+var current_state: State
 var current_stop: int = 0
 var idle_timer: Timer
+var strike_timer: Timer
 var queue: Array[Wheelchair]
 var queue_size: int
 
 ##### GRAPHICS
+var green_light_material: StandardMaterial3D = preload("res://materials/green_light_material.tres")
+var no_light_material: StandardMaterial3D = preload("res://materials/no_light_material.tres")
+var red_light_material: StandardMaterial3D = preload("res://materials/red_light_material.tres")
+var strike_light_material: StandardMaterial3D = preload("res://materials/strike_light_material.tres")
 
-@onready var selection_overlay_meshes: Array[MeshInstance3D] = [%MeshInstance3D]
+
+@onready var selection_overlay_meshes: Array[MeshInstance3D] = [%Mesh]
 
 func depart():
 	var current_traffic_light = traffic_lights[current_stop]
 	if current_traffic_light != null:
 		current_traffic_light.turn_red()
 	
-	current_state = State.MOVING
-	(selection_overlay_meshes[0].get_active_material(0) as StandardMaterial3D).albedo_color = Color.RED
+	current_state = State.MOVE
+	%Mesh.set_surface_override_material(3, no_light_material)
 	current_stop = (current_stop + 1) % len(stops)
 
 func load_platform() -> void:
 	current_state = State.LOAD
-	(selection_overlay_meshes[0].get_active_material(0) as StandardMaterial3D).albedo_color = Color.GREEN
+	%Mesh.set_surface_override_material(3, green_light_material)
 	idle_timer.wait_time = stops[current_stop].idle_time
 	idle_timer.start()
 
@@ -48,7 +56,7 @@ func unload_platform() -> void:
 
 	if len(queue) > 0 :
 		current_state = State.UNLOAD
-		(selection_overlay_meshes[0].get_active_material(0) as StandardMaterial3D).albedo_color = Color.BLUE
+		%Mesh.set_surface_override_material(3, red_light_material)
 		for wc in queue:
 			if is_instance_valid(wc):
 				wc.current_state = Wheelchair.State.MOVE
@@ -71,6 +79,25 @@ func park(wheelchair: Wheelchair) -> void:
 		
 	var tween: Tween = get_tree().create_tween()
 	tween.tween_property(wheelchair, "position:x", target_x, parking_duration)
+	
+func strike() -> bool:
+	
+	#if current_state == State.LOAD or current_state == State.MOVE:
+			#strike_timer.timeout.connect(load_platform)
+	#elif State.UNLOAD:
+			#strike_timer.timeout.connect(load_platform)
+		#:
+			#strike_timer.timeout.connect(func(): current_state = State.MOVE)
+	
+	# effect for later
+	#var tween: Tween = get_tree().create_tween()
+	#for i in range(3):
+		#var current_screen_material = %Mesh.get_surface_override_material(3)
+		#
+		 
+	current_stop = (current_stop + 1) % len(stops)
+	
+	return true
 
 func _body_entered(body: Node3D) -> void:
 	if not (body is Wheelchair) or current_state != State.LOAD:
@@ -99,7 +126,7 @@ func _physics_process(delta: float) -> void:
 	
 	var velocity: Vector3 = Vector3.ZERO
 	
-	if current_state == State.MOVING:
+	if current_state == State.MOVE:
 		var current_stop_position: Vector3 = stops[current_stop].position
 		var current_stop_distance: float = global_position.distance_to(current_stop_position)
 		if current_stop_distance < EPSILON:
@@ -125,4 +152,4 @@ func _ready() -> void:
 	var control_area_size = (control_area.get_child(0).shape as BoxShape3D).size.x
 	queue_size = int(control_area_size / PARKING_SPACE)
 	
-	current_state = State.MOVING
+	current_state = State.MOVE

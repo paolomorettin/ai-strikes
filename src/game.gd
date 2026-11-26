@@ -3,8 +3,8 @@ extends Node3D
 
 static var size: float = 100.0 # m
 
-@export var player: Player
 
+@export var player: Player
 @export var startup_delay: float = 2.0 # s
 
 @export var initial_time: float = 300.0 # s
@@ -22,6 +22,7 @@ var strokens: float = initial_strokens
 
 func game_over() -> void:
 	queue_free()
+
 	
 func score(points: float) -> void:
 	mayhem += points
@@ -48,6 +49,8 @@ func _ready() -> void:
 	
 	game_ui = preload("res://src/ui/game_ui.tscn").instantiate()
 	add_child(game_ui)
+	
+	#start_level(0)
 	
 	var initial_timer = get_tree().create_timer(startup_delay)
 	initial_timer.timeout.connect(

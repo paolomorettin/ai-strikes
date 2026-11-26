@@ -24,13 +24,18 @@ window/stretch/aspect="expand"
 [file_customization]
 
 folder_colors={
-"res://levels/": "green",
+"res://levels/": "purple",
 "res://materials/": "blue",
+"res://meshes/": "green",
 "res://particles/": "yellow",
 "res://resources/": "orange",
 "res://src/": "red",
 "res://textures/": "pink"
 }
+
+[filesystem]
+
+import/blender/enabled=false
 
 [input]
 

@@ -20,7 +20,7 @@ var strike_buffered: bool = false # needed for buffering a strike during an auto
 
 @onready var game: Game = get_parent().get_parent()
 
-@onready var brake_lights: MeshInstance3D = %BrakeLights
+@onready var mesh: MeshInstance3D = %Mesh
 @onready var halt_timer: Timer
 @onready var ttl_timer: Timer
 @onready var sensing: Area3D = %Sensing
@@ -36,7 +36,7 @@ static var override_light_material = preload("res://materials/override_light_mat
 static var red_light_material = preload("res://materials/red_light_material.tres")
 static var strike_light_material = preload("res://materials/strike_light_material.tres")
 
-var selection_overlay_meshes: Array[MeshInstance3D] = []
+@onready var selection_overlay_meshes: Array[MeshInstance3D] = [%Mesh]
 
 var spark_timer: Timer
 var spark_frequency: float = 0.2
@@ -176,11 +176,6 @@ func _physics_process(delta: float) -> void:
 			quaternion = (Quaternion(up, floor_normal) * quaternion).normalized()
 
 func _ready() -> void:
-	
-	selection_overlay_meshes = [%MainMesh, %BrakeLights]
-	
-	#brake_lights.mesh.material = StandardMaterial3D.new()
-	
 	halt_timer = Timer.new()
 	add_child(halt_timer)
 	halt_timer.one_shot = true
@@ -218,11 +213,11 @@ func _ready() -> void:
 
 func _set_brake_lights(state: State) -> void:
 	if state in [State.IDLE, State.MOVE]:
-		brake_lights.mesh.material = no_light_material
+		mesh.set_surface_override_material(1, no_light_material)
 	elif state in [State.BRAKE, State.ROTATE]:
-		brake_lights.mesh.material = red_light_material
+		mesh.set_surface_override_material(1, red_light_material)
 	elif state == State.OVERRIDE:
-		brake_lights.mesh.material = override_light_material
+		mesh.set_surface_override_material(1, override_light_material)
 	elif state == State.STRIKE:
-		brake_lights.mesh.material = strike_light_material
+		mesh.set_surface_override_material(1, strike_light_material)
 		

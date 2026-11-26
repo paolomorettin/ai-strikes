@@ -5,31 +5,29 @@ enum TrafficDirection {LEFT, RIGHT, UNSET}
 
 const PARKING_SPACE = 1.3 # m
 
-@onready var green_light: MeshInstance3D = %GreenLight
-@onready var red_light: MeshInstance3D = %RedLight
+static var strike_cost: int = 20
+static var strike_duration: float = 10.0 # s
+
 @onready var control_area: Area3D = %ControlArea
 
 @export var is_green: bool = true
 @export var auto_switch_time: float = -1 # s (if greater than zero, sets a timer for automatic light switching)
 
+var buffered_change: bool = false
+var strike_timer: Timer
+
 var queue: Array[Wheelchair] = []
 var queue_size: int
-var traffic_direction: TrafficDirection
+var traffic_direction: TrafficDirection = TrafficDirection.UNSET
 
-var selection_overlay_meshes: Array[MeshInstance3D] = []
+##### GRAPHICS
 
-
+@onready var selection_overlay_meshes: Array[MeshInstance3D] = [%TrafficLightMain]
 
 static var green_light_material: StandardMaterial3D = preload("res://materials/green_light_material.tres")
 var no_light_material: StandardMaterial3D = preload("res://materials/no_light_material.tres")
 var red_light_material: StandardMaterial3D = preload("res://materials/red_light_material.tres")
 static var strike_light_material: StandardMaterial3D = preload("res://materials/strike_light_material.tres")
-
-static var strike_cost: int = 20
-static var strike_duration: float = 4.0 # s
-
-var buffered_change: bool = false
-var strike_timer: Timer
 
 func turn_green() -> void:
 	if not is_green:
@@ -129,9 +127,6 @@ func _body_exited(body: Node3D) -> void:
 	traffic_direction = TrafficDirection.UNSET
 
 func _ready() -> void:
-	
-	selection_overlay_meshes = [%Pole, %Body]
-	
 	if auto_switch_time > 0:
 		var auto_switcher = Timer.new()
 		add_child(auto_switcher)
@@ -156,34 +151,18 @@ func _ready() -> void:
 				buffered_change = false
 				switch_lights()
 	)
-	
-	#green_light_material = StandardMaterial3D.new()
-	#green_light_material.albedo_color = Color(0, 0.3, 0)
-	#green_light_material.emission_enabled = true
-	#green_light_material.emission_energy_multiplier = 3.0
-	#green_light_material.emission = Color(0, 1, 0)
-	#
-	#no_light_material = StandardMaterial3D.new()
-	#no_light_material.albedo_color = Color(0.3, 0.3, 0.5)
-	#
-	#red_light_material = StandardMaterial3D.new()
-	#red_light_material.albedo_color = Color(0.3, 0, 0)
-	#red_light_material.emission_enabled = true
-	#red_light_material.emission_energy_multiplier = 3.0
-	#red_light_material.emission = Color(1, 0, 0)
-	
 	_set_lights()
 
 func _set_lights() -> void:
 	if is_green:
-		red_light.material_override = no_light_material
+		%TrafficLightMain.set_surface_override_material(2, no_light_material)
 		if strike_timer.is_stopped():
-			green_light.material_override = green_light_material
+			%TrafficLightMain.set_surface_override_material(3, green_light_material)
 		else:
-			green_light.material_override = strike_light_material
+			%TrafficLightMain.set_surface_override_material(3, strike_light_material)
 	else:
-		green_light.material_override = no_light_material
+		%TrafficLightMain.set_surface_override_material(3, no_light_material)
 		if strike_timer.is_stopped():
-			red_light.material_override = red_light_material
+			%TrafficLightMain.set_surface_override_material(2, red_light_material)
 		else:
-			red_light.material_override = strike_light_material
+			%TrafficLightMain.set_surface_override_material(2, strike_light_material)

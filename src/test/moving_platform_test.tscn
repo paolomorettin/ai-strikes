@@ -1,99 +1,10 @@
 [gd_scene format=3 uid="uid://d6eoe5xxhy4n"]
 
 [ext_resource type="Script" uid="uid://be7xedv1b0ci2" path="res://src/test/moving_platform_test.gd" id="1_6hx2h"]
-[ext_resource type="PackedScene" uid="uid://bewnefd51q2qd" path="res://src/environment/test_platform.tscn" id="2_cswyw"]
-[ext_resource type="PackedScene" uid="uid://cmc3qvxcmu5k6" path="res://src/environment/test_wall.tscn" id="3_vc2xf"]
-[ext_resource type="PackedScene" uid="uid://bd57f7lbtgily" path="res://src/environment/moving_platform.tscn" id="4_kigl1"]
-[ext_resource type="Script" uid="uid://4vpbua2c1on" path="res://src/environment/moving_platform_stop.gd" id="5_cswyw"]
-[ext_resource type="PackedScene" uid="uid://dt0qchp445sp7" path="res://src/environment/traffic_light.tscn" id="5_vc2xf"]
-[ext_resource type="PackedScene" uid="uid://bqh3dcopkvr54" path="res://src/environment/entrance.tscn" id="7_6hx2h"]
-[ext_resource type="PackedScene" uid="uid://bjg00ixkve11x" path="res://src/environment/exit.tscn" id="8_jh0x5"]
-
-[sub_resource type="Resource" id="Resource_kigl1"]
-script = ExtResource("5_cswyw")
-position = Vector3(-3, 0, 0)
-metadata/_custom_type_script = "uid://4vpbua2c1on"
-
-[sub_resource type="Resource" id="Resource_cswyw"]
-script = ExtResource("5_cswyw")
-position = Vector3(3, 0, 0)
-load_direction = 1
-unload_direction = 1
-metadata/_custom_type_script = "uid://4vpbua2c1on"
-
-[sub_resource type="Resource" id="Resource_6hx2h"]
-script = ExtResource("5_cswyw")
-position = Vector3(3, -8, 0)
-load_direction = 1
-unload_direction = 1
-metadata/_custom_type_script = "uid://4vpbua2c1on"
-
-[sub_resource type="Resource" id="Resource_jh0x5"]
-script = ExtResource("5_cswyw")
-position = Vector3(-3, -5, 0)
-metadata/_custom_type_script = "uid://4vpbua2c1on"
+[ext_resource type="PackedScene" uid="uid://biiow5dp0avlm" path="res://levels/level1.tscn" id="2_huk7m"]
 
 [node name="MovingPlatformTest" type="Node3D" unique_id=1903358677]
 script = ExtResource("1_6hx2h")
 metadata/_custom_type_script = "uid://bc0qti176w6s6"
 
-[node name="Level" type="Node3D" parent="." unique_id=2134422734]
-
-[node name="Sun" type="DirectionalLight3D" parent="Level" unique_id=1406060814]
-transform = Transform3D(0.9605089, 0.068557285, -0.2696712, 0, 0.9691713, 0.24638802, 0.27824926, -0.23665787, 0.93089765, -6.6637497, 6.4563837, 8.961426)
-
-[node name="TestPlatform" parent="Level" unique_id=2103395743 instance=ExtResource("2_cswyw")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 0, 0)
-
-[node name="TestPlatform3" parent="Level" unique_id=1690740955 instance=ExtResource("2_cswyw")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, -11, 0)
-
-[node name="TestPlatform4" parent="Level" unique_id=183067728 instance=ExtResource("2_cswyw")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, -11, 0)
-
-[node name="TestPlatform2" parent="Level" unique_id=1490586165 instance=ExtResource("2_cswyw")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 0, 0)
-
-[node name="MovingPlatform" parent="Level" unique_id=1700442084 node_paths=PackedStringArray("traffic_lights") instance=ExtResource("4_kigl1")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, 0)
-stops = Array[ExtResource("5_cswyw")]([SubResource("Resource_kigl1"), SubResource("Resource_cswyw"), SubResource("Resource_6hx2h"), SubResource("Resource_jh0x5")])
-traffic_lights = [NodePath("../TrafficLight"), null, NodePath("../TrafficLight4"), null]
-
-[node name="TrafficLight" parent="Level" unique_id=792372366 instance=ExtResource("5_vc2xf")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, 0)
-
-[node name="TestWall" parent="Level" unique_id=1225326320 instance=ExtResource("3_vc2xf")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 0, 0)
-
-[node name="TestWall2" parent="Level" unique_id=942751032 instance=ExtResource("3_vc2xf")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 0, 0)
-
-[node name="Entrance" parent="Level" unique_id=617829593 instance=ExtResource("7_6hx2h")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, 0)
-direction = 1
-
-[node name="TestPlatform5" parent="Level" unique_id=792911908 instance=ExtResource("2_cswyw")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, -5, 0)
-
-[node name="TestWall3" parent="Level" unique_id=789334518 instance=ExtResource("3_vc2xf")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, -5, 0)
-
-[node name="TestPlatform6" parent="Level" unique_id=491297880 instance=ExtResource("2_cswyw")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, -8, 0)
-
-[node name="TrafficLight4" parent="Level" unique_id=1606143762 instance=ExtResource("5_vc2xf")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, -8, 0)
-is_green = false
-
-[node name="TestWall4" parent="Level" unique_id=677283842 instance=ExtResource("3_vc2xf")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, -8, 0)
-
-[node name="Entrance4" parent="Level" unique_id=753412032 instance=ExtResource("7_6hx2h")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, -8, 0)
-direction = 0
-
-[node name="Exit" parent="Level" unique_id=384077305 instance=ExtResource("8_jh0x5")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, -5, 0)
-
-[node name="Exit2" parent="Level" unique_id=1035337819 instance=ExtResource("8_jh0x5")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 0)
+[node name="Level" parent="." unique_id=2057342584 instance=ExtResource("2_huk7m")]

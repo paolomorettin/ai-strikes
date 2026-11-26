@@ -16,6 +16,8 @@ var selected: Node3D:
 			for meshinstance in selected.selection_overlay_meshes:
 				meshinstance.material_overlay = null
 		selected = value
+		if selected != null:
+			prints("selected", selected)
 		if selected != null and "selection_overlay_meshes" in selected:
 			for meshinstance in selected.selection_overlay_meshes:
 				meshinstance.material_overlay = selection_material
@@ -66,10 +68,13 @@ func _raycast() -> void:
 	var target_position = Plane(Vector3.BACK, Vector3(0, 0, -game.size / 2)).intersects_ray(global_position, project_ray_normal(get_viewport().get_mouse_position()))
 	var collision_mask: int = 4 # i.e. only objects
 	var query = PhysicsRayQueryParameters3D.create(global_position, target_position, collision_mask)
+	query.collide_with_areas = true
 	var result = space_state.intersect_ray(query)
 	var collider = result.get("collider")
-	# probably I should put conditions
-	selected = collider
+	if collider is Area3D:
+		selected = collider.get_parent()
+	else:
+		selected = collider
 
 func _ready() -> void:
 	global_position = Vector3(0, 0, 10)
