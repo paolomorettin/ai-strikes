@@ -1,7 +1,10 @@
 [gd_resource type="StandardMaterial3D" format=3 uid="uid://qvfvhms2tr4n"]
 
 [resource]
-albedo_color = Color(1, 0, 0, 1)
+resource_name = "RedLights"
+cull_mode = 2
+albedo_color = Color(0.9063355, 0, 0.07291697, 1)
+roughness = 0.5
 emission_enabled = true
-emission = Color(0.11612659, 0.11612659, 0.11612659, 1)
-emission_energy_multiplier = 2.0
+emission = Color(1, 0.08260359, 0.00087132264, 1)
+emission_energy_multiplier = 3.0

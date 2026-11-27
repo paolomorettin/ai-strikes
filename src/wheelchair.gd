@@ -19,13 +19,14 @@ static var strike_duration: float = 4.0
 var strike_buffered: bool = false # needed for buffering a strike during an autonomous rotation
 
 @onready var game: Game = get_parent().get_parent()
-
-@onready var mesh: MeshInstance3D = %Mesh
 @onready var halt_timer: Timer
 @onready var ttl_timer: Timer
 @onready var sensing: Area3D = %Sensing
 
 ##### GRAPHICS
+
+var target_head_quaternion: Quaternion = Quaternion()
+var head_rotation_speed: float = 0.25 * TAU # rad / s
 
 # particles
 static var spark_particles = preload("res://particles/sparks.tscn")
@@ -36,8 +37,22 @@ static var override_light_material = preload("res://materials/override_light_mat
 static var red_light_material = preload("res://materials/red_light_material.tres")
 static var strike_light_material = preload("res://materials/strike_light_material.tres")
 
-@onready var selection_overlay_meshes: Array[MeshInstance3D] = [%Mesh]
+# clothing
+var clothing_colors: Array[Color] = [
+	Color.ORANGE,
+	Color.AQUAMARINE,
+	Color.HOT_PINK,
+	Color.SLATE_GRAY,
+	Color.GREEN_YELLOW,
+	Color.MEDIUM_PURPLE,
+	Color.ORANGE_RED,
+	Color.DARK_BLUE
+]
 
+# selection
+@onready var selection_overlay_meshes: Array[MeshInstance3D] = [%BodyMesh, %HeadMesh]
+
+# sparks
 var spark_timer: Timer
 var spark_frequency: float = 0.2
 
@@ -103,6 +118,14 @@ func turn_around() -> void:
 	)
 
 func _physics_process(delta: float) -> void:
+	
+	# move the head
+	var anglular_distance: float = $HeadMesh.quaternion.angle_to(target_head_quaternion)
+	if anglular_distance < 0.01:
+		target_head_quaternion = Quaternion(Vector3.UP, randf_range(-TAU/8, TAU/8)) * Quaternion(Vector3.FORWARD, randf_range(-TAU/8, TAU/8))
+	else:
+		$HeadMesh.quaternion = $HeadMesh.quaternion.slerp(target_head_quaternion, min(1.0, head_rotation_speed * delta / anglular_distance))
+	
 
 	##### update the facing and up vector
 
@@ -177,6 +200,9 @@ func _physics_process(delta: float) -> void:
 			quaternion = (Quaternion(up, floor_normal) * quaternion).normalized()
 
 func _ready() -> void:
+	
+	_set_clothes_colors()
+	
 	halt_timer = Timer.new()
 	add_child(halt_timer)
 	halt_timer.one_shot = true
@@ -213,12 +239,24 @@ func _ready() -> void:
 	current_state = State.IDLE
 
 func _set_brake_lights(state: State) -> void:
+	const light_surface = 1
 	if state in [State.IDLE, State.MOVE]:
-		mesh.set_surface_override_material(1, no_light_material)
+		$BodyMesh.set_surface_override_material(light_surface, no_light_material)
 	elif state in [State.BRAKE, State.ROTATE]:
-		mesh.set_surface_override_material(1, red_light_material)
+		$BodyMesh.set_surface_override_material(light_surface, red_light_material)
 	elif state == State.OVERRIDE:
-		mesh.set_surface_override_material(1, override_light_material)
+		$BodyMesh.set_surface_override_material(light_surface, override_light_material)
 	elif state == State.STRIKE:
-		mesh.set_surface_override_material(1, strike_light_material)
+		$BodyMesh.set_surface_override_material(light_surface, strike_light_material)
+		
+func _set_clothes_colors() -> void:
+	const suit_surface = 2
+	const hair_surface = 3
+	var suit_material: StandardMaterial3D = StandardMaterial3D.new()
+	suit_material.albedo_color = clothing_colors[randi_range(0, len(clothing_colors) - 1)]
+	var hair_material: StandardMaterial3D = StandardMaterial3D.new()
+	hair_material.albedo_color = clothing_colors[randi_range(0, len(clothing_colors) - 1)]
+	$BodyMesh.set_surface_override_material(suit_surface, suit_material)
+	$HeadMesh.set_surface_override_material(hair_surface, hair_material)
+
 		

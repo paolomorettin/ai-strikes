@@ -1,7 +1,10 @@
 [gd_resource type="StandardMaterial3D" format=3 uid="uid://db4q8db60mf18"]
 
 [resource]
-albedo_color = Color(0, 1, 0, 1)
+resource_name = "GreenLights"
+cull_mode = 2
+albedo_color = Color(0.072757386, 1, 0.00089903193, 1)
+roughness = 0.5
 emission_enabled = true
-emission = Color(0.11612659, 0.11612659, 0.11612659, 1)
-emission_energy_multiplier = 2.0
+emission = Color(0.04843992, 0.6398152, 0.0018214114, 1)
+emission_energy_multiplier = 4.0

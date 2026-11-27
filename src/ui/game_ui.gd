@@ -73,6 +73,13 @@ func _process(_delta: float) -> void:
 			else:
 				%InfoLabel.text = "Out of service"
 			%StrikeLabel.text = "DEACTIVATE"
+		elif selected is BoomBarrier:
+			%NameLabel.text = "Boom Barrier"
+			if selected.strike_timer.is_stopped():
+				%InfoLabel.text = "Active"
+			else:
+				%InfoLabel.text = "Out of service"
+			%StrikeLabel.text = "RAISE"
 		else:
 			assert(false)
 		if selected.can_strike():
