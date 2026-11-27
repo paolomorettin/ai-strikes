@@ -1,6 +1,7 @@
 [gd_scene format=4 uid="uid://bhrjhrcee4267"]
 
 [ext_resource type="Script" uid="uid://cefcumjs5pne" path="res://src/wheelchair.gd" id="1_gytsc"]
+[ext_resource type="PackedScene" uid="uid://cm0miit8qfr6h" path="res://particles/override_aura.tscn" id="2_gytsc"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_s3t5s"]
 resource_local_to_scene = true
@@ -290,3 +291,6 @@ collision_mask = 0
 [node name="CollisionShape3D" type="CollisionShape3D" parent="SelectionArea" unique_id=1552874944]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 shape = SubResource("BoxShape3D_4fiib")
+
+[node name="OverrideAura" parent="." unique_id=995948980 instance=ExtResource("2_gytsc")]
+unique_name_in_owner = true

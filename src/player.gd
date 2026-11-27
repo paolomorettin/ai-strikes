@@ -12,13 +12,20 @@ var selection_material: StandardMaterial3D = preload("res://materials/selection.
 
 var selected: Node3D:
 	set(value):
-		if selected != null and "selection_overlay_meshes" in selected:
+		if selected != null:
 			for meshinstance in selected.selection_overlay_meshes:
 				meshinstance.material_overlay = null
-		selected = value
-		if selected != null:
-			prints("selected", selected)
-		if selected != null and "selection_overlay_meshes" in selected:
+				
+		if value == null:
+			selected = null
+		
+		elif (
+			"strike_cost" in value and
+			"selection_overlay_meshes" in value and 
+			value.has_method("can_strike") and
+			value.has_method("strike")
+		):
+			selected = value
 			for meshinstance in selected.selection_overlay_meshes:
 				meshinstance.material_overlay = selection_material
 		

@@ -7,6 +7,9 @@
 [ext_resource type="PackedScene" uid="uid://bqh3dcopkvr54" path="res://src/environment/entrance.tscn" id="6_bekh1"]
 [ext_resource type="PackedScene" uid="uid://bjg00ixkve11x" path="res://src/environment/exit.tscn" id="7_8bcou"]
 [ext_resource type="PackedScene" uid="uid://1u7mdjhswsgb" path="res://src/environment/platform2.tscn" id="7_8hd6v"]
+[ext_resource type="PackedScene" uid="uid://cfprve6urt8o5" path="res://src/environment/tv_terrace.tscn" id="8_045es"]
+[ext_resource type="PackedScene" uid="uid://c2imgm7sllrtq" path="res://src/environment/barrels.tscn" id="8_lf3p4"]
+[ext_resource type="PackedScene" uid="uid://bjfrbbwxog7wp" path="res://src/environment/platform1.tscn" id="9_omn1t"]
 
 [sub_resource type="Resource" id="Resource_kigl1"]
 script = ExtResource("3_omn1t")
@@ -45,15 +48,11 @@ traffic_lights = [NodePath("../TrafficLight"), null, NodePath("../TrafficLight4"
 [node name="TrafficLight" parent="." unique_id=792372366 instance=ExtResource("4_lf3p4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 0)
 
-[node name="TestWall" parent="." unique_id=1225326320 instance=ExtResource("5_yydhl")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13, 0, 0)
-
 [node name="TestWall2" parent="." unique_id=1211526457 instance=ExtResource("5_yydhl")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 0, 0)
 
 [node name="Entrance" parent="." unique_id=617829593 instance=ExtResource("6_bekh1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 0, 0)
-direction = 1
 
 [node name="TestWall3" parent="." unique_id=571648313 instance=ExtResource("5_yydhl")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, -5, 0)
@@ -62,12 +61,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, -5, 0)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, -8, 0)
 is_green = false
 
-[node name="TestWall4" parent="." unique_id=346514065 instance=ExtResource("5_yydhl")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, -8, 0)
-
 [node name="Entrance4" parent="." unique_id=109744187 instance=ExtResource("6_bekh1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, -8, 0)
-direction = 0
 
 [node name="Exit" parent="." unique_id=1093866476 instance=ExtResource("7_8bcou")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, -5, 0)
@@ -86,3 +81,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0, 0)
 
 [node name="Platform5" parent="." unique_id=1075280522 instance=ExtResource("7_8hd6v")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, -8, 0)
+
+[node name="Platform6" parent="." unique_id=1384748748 instance=ExtResource("7_8hd6v")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, -8, 0)
+
+[node name="Barrels" parent="Platform6" unique_id=138851073 instance=ExtResource("8_lf3p4")]
+
+[node name="TvTerrace" parent="." unique_id=1781236683 instance=ExtResource("8_045es")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 0, 0)
+
+[node name="Platform1" parent="." unique_id=1097063730 instance=ExtResource("9_omn1t")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, -8, 0)

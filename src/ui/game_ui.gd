@@ -44,18 +44,34 @@ func _process(_delta: float) -> void:
 		if selected is Wheelchair:
 			var adjective = adjectives[hash(selected) % len(adjectives)]
 			%NameLabel.text = adjective + " Human's Wheels"
+			%InfoLabel.text = "Lifetime %d s" % selected.ttl_timer.time_left
 			%StrikeLabel.text = "SPIN"
 		elif selected is TrafficLight:
 			%NameLabel.text = "Traffic Light"
+			if selected.auto_switch_time > 0:
+				%InfoLabel.text = "Switch in %d s" % selected.auto_switcher.time_left
+			else:
+				%InfoLabel.text = "External control"
 			%StrikeLabel.text = "FREEZE"
 		elif selected is MovingPlatform:
 			%NameLabel.text = "Moving Platform"
+			%InfoLabel.text = "Next destination #%d" % (selected.current_stop + 1)
 			%StrikeLabel.text = "SKIP DESTINATION"
 		elif selected is Entrance:
 			%NameLabel.text = "Entrance Gate"
-			%StrikeLabel.text = "RANDOMIZE DIRECTION"
+			if not selected.strike_timer.is_stopped():
+				%InfoLabel.text = "Direction ????"
+			elif selected.direction > Entrance.Direction.LEFT:
+				%InfoLabel.text = "Direction LEFT"
+			else:
+				%InfoLabel.text = "Direction RIGHT"
+			%StrikeLabel.text = "RANDOMIZE"
 		elif selected is Exit:
 			%NameLabel.text = "Exit Gate"
+			if selected.strike_timer.is_stopped():
+				%InfoLabel.text = "Active"
+			else:
+				%InfoLabel.text = "Out of service"
 			%StrikeLabel.text = "DEACTIVATE"
 		else:
 			assert(false)
@@ -71,6 +87,7 @@ func _process(_delta: float) -> void:
 		%CostLabel.text = " %d "  % selected.strike_cost + strokens_symbol
 	else:
 		%NameLabel.text = ""
+		%InfoLabel.text = ""
 		%StrikeLabel.text = ""
 		%CostLabel.text = ""
 

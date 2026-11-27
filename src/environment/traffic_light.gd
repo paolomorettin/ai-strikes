@@ -8,16 +8,16 @@ const PARKING_SPACE = 1.3 # m
 static var strike_cost: int = 10
 static var strike_duration: float = 10.0 # s
 
-@onready var control_area: Area3D = %ControlArea
-
 @export var is_green: bool = true
 @export var auto_switch_time: float = -1 # s (if greater than zero, sets a timer for automatic light switching)
 
-var buffered_change: bool = false
-var strike_timer: Timer
+@onready var control_area: Area3D = %ControlArea
 
+var auto_switcher: Timer
+var buffered_change: bool = false
 var queue: Array[Wheelchair] = []
 var queue_size: int
+var strike_timer: Timer
 var traffic_direction: TrafficDirection = TrafficDirection.UNSET
 
 ##### GRAPHICS
@@ -128,7 +128,7 @@ func _body_exited(body: Node3D) -> void:
 
 func _ready() -> void:
 	if auto_switch_time > 0:
-		var auto_switcher = Timer.new()
+		auto_switcher = Timer.new()
 		add_child(auto_switcher)
 		auto_switcher.wait_time = auto_switch_time
 		auto_switcher.start()

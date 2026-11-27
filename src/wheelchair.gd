@@ -54,6 +54,7 @@ var current_state: State:
 	set(state):
 		current_state = state
 		_set_brake_lights(state)
+		%OverrideAura.emitting = current_state == State.OVERRIDE
 
 # normalized direction vectors updated during '_physics_process'
 var facing: Vector3

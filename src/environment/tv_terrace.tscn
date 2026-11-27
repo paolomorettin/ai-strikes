@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://cfprve6urt8o5"]
+
+[ext_resource type="PackedScene" uid="uid://cim6u1d1rfnd4" path="res://resources/blender/export/tv_terrace.glb" id="1_whq5x"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2ijik"]
+size = Vector3(4, 1, 4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_whq5x"]
+size = Vector3(1, 2, 4)
+
+[node name="TvTerrace" type="StaticBody3D" unique_id=1781236683]
+collision_layer = 3
+collision_mask = 0
+
+[node name="tv_terrace" parent="." unique_id=359106485 instance=ExtResource("1_whq5x")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2002019497]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+shape = SubResource("BoxShape3D_2ijik")
+debug_color = Color(0.7, 0, 0.011666489, 1)
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="." unique_id=1410942858]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 1, 0)
+shape = SubResource("BoxShape3D_whq5x")
+debug_color = Color(0.7, 0, 0.011666489, 1)

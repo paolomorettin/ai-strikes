@@ -24,9 +24,8 @@ window/stretch/aspect="expand"
 [file_customization]
 
 folder_colors={
-"res://levels/": "purple",
-"res://materials/": "blue",
-"res://meshes/": "green",
+"res://levels/": "teal",
+"res://materials/": "green",
 "res://particles/": "yellow",
 "res://resources/": "orange",
 "res://src/": "red",
