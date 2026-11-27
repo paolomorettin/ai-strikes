@@ -31,7 +31,7 @@ func control_traffic(body: Node3D) -> void:
 func serve(wheelchair: Wheelchair) -> void:
 	is_despawning = true
 	wheelchair.current_state = Wheelchair.State.OVERRIDE
-	wheelchair.ttl_timer.stop()
+	wheelchair.ttl_timer.paused = true
 	var horizontal_movement_duration = wheelchair.global_position.distance_to(global_position) / abs(wheelchair.velocity.x)
 	var despawn_duration = -despawn_point.z / abs(wheelchair.velocity.x)
 	var target_quaternion: Quaternion

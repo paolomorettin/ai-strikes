@@ -7,14 +7,14 @@ static var strike_cost: int = 15
 static var strike_duration: float = 15.0 # s
 
 @export var direction: Direction = Direction.RIGHT
-@export var spawn_speed: float = 0.5 # relative to 'Wheelchair.max_speed'
+@export var spawn_time: float = 10.0 # s
 
 @onready var control_area: Area3D = %ControlArea
-@onready var spawn_timer: Timer = %SpawnTimer
 
 var last_spawned
 var is_spawning: bool = false
 var spawn_point: Vector3
+var spawn_timer: Timer
 var strike_timer: Timer
 
 ##### GRAPHICS
@@ -45,7 +45,7 @@ func spawn() -> void:
 	last_spawned.current_state = Wheelchair.State.OVERRIDE
 	last_spawned.quaternion = Quaternion(Vector3.UP, -TAU/4)
 	
-	var spawn_duration = -spawn_point.z / (spawn_speed * Wheelchair.max_speed)
+	var spawn_duration = -spawn_point.z / (0.5 * Wheelchair.max_speed)
 	var target_quaternion: Quaternion
 	
 	if strike_timer.is_stopped():
@@ -82,7 +82,12 @@ func strike() -> void:
 func _ready() -> void:
 	spawn_point = Vector3(global_position.x, global_position.y, -3)
 	control_area.body_entered.connect(control_traffic)
+	
+	spawn_timer = Timer.new()
+	add_child(spawn_timer)
+	spawn_timer.wait_time = spawn_time
 	spawn_timer.timeout.connect(spawn)
+	spawn_timer.start()
 	
 	strike_timer = Timer.new()
 	add_child(strike_timer)
