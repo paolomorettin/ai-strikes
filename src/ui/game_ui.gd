@@ -7,6 +7,8 @@ extends Control
 @onready var time_bar: CustomBar = %TimeBar
 @onready var mayhem_bar: CustomBar = %MayhemBar
 
+var strokens_symbol = " \u0336S\u0336T\u0336"
+
 var adjectives: Array[String] = ["Feeble", "Flaccid", "Negligible", "Petty", "Useless", "Worthless"]
 
 func tilt_control(control: Control) -> void:
@@ -33,7 +35,7 @@ func _process(_delta: float) -> void:
 	#var seconds: int = int(game.game_timer.time_left) % 60
 	#timer_label.text = ("%02d" % minutes) + ":" + ("%02d" % seconds)
 	
-	%StrokensLabel.text = str(int(game.strokens))
+	%StrokensLabel.text = str(int(game.strokens)) + " " + strokens_symbol
 	
 	var selected = game.player.selected
 	if selected != null:
@@ -49,6 +51,12 @@ func _process(_delta: float) -> void:
 		elif selected is MovingPlatform:
 			%NameLabel.text = "Moving Platform"
 			%StrikeLabel.text = "SKIP DESTINATION"
+		elif selected is Entrance:
+			%NameLabel.text = "Entrance Gate"
+			%StrikeLabel.text = "RANDOMIZE DIRECTION"
+		elif selected is Exit:
+			%NameLabel.text = "Exit Gate"
+			%StrikeLabel.text = "DEACTIVATE"
 		else:
 			assert(false)
 		if selected.can_strike():
@@ -57,7 +65,10 @@ func _process(_delta: float) -> void:
 		else:
 			%StrikeLabel.add_theme_color_override("font_color", Color.ORANGE_RED)
 			%CostLabel.add_theme_color_override("font_color", Color.ORANGE_RED)
-		%CostLabel.text = " %d" % selected.strike_cost
+			
+		if "strike_duration" in selected:
+			%StrikeLabel.text += " (%d s)" % selected.strike_duration
+		%CostLabel.text = " %d "  % selected.strike_cost + strokens_symbol
 	else:
 		%NameLabel.text = ""
 		%StrikeLabel.text = ""

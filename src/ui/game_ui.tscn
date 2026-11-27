@@ -55,28 +55,23 @@ size_flags_horizontal = 3
 texture = ExtResource("5_xtgum")
 stretch_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer2/StrokensInfo" unique_id=537027637]
+[node name="StrokensLabel" type="Label" parent="MarginContainer2/StrokensInfo" unique_id=571436458]
+unique_name_in_owner = true
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -61.5
+offset_top = -19.5
+offset_right = 61.5
+offset_bottom = 19.5
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="Label" type="Label" parent="MarginContainer2/StrokensInfo/VBoxContainer" unique_id=471035557]
-layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 16
-text = "STROKENS"
-horizontal_alignment = 1
-vertical_alignment = 2
-
-[node name="StrokensLabel" type="Label" parent="MarginContainer2/StrokensInfo/VBoxContainer" unique_id=571436458]
-unique_name_in_owner = true
-layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_constants/outline_size = 8
-theme_override_font_sizes/font_size = 18
+theme_override_font_sizes/font_size = 28
 text = "1000000"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -118,7 +113,7 @@ text = "Petty Petty Petty Human"
 horizontal_alignment = 1
 vertical_alignment = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer3/VBoxContainer" unique_id=1093008906]
+[node name="HBoxContainer" type="VBoxContainer" parent="MarginContainer3/VBoxContainer" unique_id=1095219412]
 layout_mode = 2
 alignment = 1
 

@@ -31,7 +31,6 @@ var no_light_material: StandardMaterial3D = preload("res://materials/no_light_ma
 var red_light_material: StandardMaterial3D = preload("res://materials/red_light_material.tres")
 var strike_light_material: StandardMaterial3D = preload("res://materials/strike_light_material.tres")
 
-
 @onready var selection_overlay_meshes: Array[MeshInstance3D] = [%Mesh]
 
 func depart():

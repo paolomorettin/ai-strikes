@@ -14,7 +14,7 @@ static var explosion_speed: float = 9.0 # m/s
 
 static var mayhem_score: int = 10
 static var strike_cost: int = 5
-static var strike_turn_arounds: int = 8 # happening twice as fast wrt 'turn_around_time'
+static var strike_duration: float = 4.0
 
 var strike_buffered: bool = false # needed for buffering a strike during an autonomous rotation
 
@@ -78,6 +78,8 @@ func strike() -> void:
 		current_state = State.STRIKE
 		var tween: Tween = get_tree().create_tween()
 		var target_quaternion: Quaternion = quaternion
+		 # strike turn around are twice as fast
+		var strike_turn_arounds: int = 2 * int(strike_duration / turn_around_time)
 		for n in range(strike_turn_arounds):
 			target_quaternion = Quaternion(Vector3.UP, PI) * target_quaternion
 			tween.tween_property(self, "quaternion", target_quaternion, turn_around_time / 2.0)

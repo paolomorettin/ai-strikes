@@ -8,7 +8,7 @@ static var size: float = 100.0 # m
 @export var startup_delay: float = 2.0 # s
 
 @export var initial_time: float = 300.0 # s
-@export var initial_strokens: float = 10
+@export var initial_strokens: float = 100
 @export var strokens_per_second: float = 1.0 # 1/s
 
 
