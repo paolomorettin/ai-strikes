@@ -3,7 +3,8 @@
 [ext_resource type="Script" uid="uid://dhljitlqdg6xt" path="res://src/ui/game_ui.gd" id="1_jlfe0"]
 [ext_resource type="PackedScene" uid="uid://bxd3rk8g2rmp0" path="res://src/ui/mayhem_bar.tscn" id="3_jdnd6"]
 [ext_resource type="PackedScene" uid="uid://bvk3juwjgmo3t" path="res://src/ui/time_bar.tscn" id="3_uoilq"]
-[ext_resource type="Texture2D" uid="uid://ddpa71uk6khsc" path="res://textures/box.png" id="5_blig7"]
+[ext_resource type="Texture2D" uid="uid://ceafu6rui3k0e" path="res://textures/box-big.png" id="5_blig7"]
+[ext_resource type="Texture2D" uid="uid://cjv1togcymphu" path="res://textures/box-strokens.png" id="5_xtgum"]
 
 [node name="GameUI" type="Control" unique_id=1179739631]
 layout_mode = 3
@@ -39,24 +40,22 @@ layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -292.0
-offset_bottom = 78.0
+offset_left = -143.0
+offset_bottom = 73.0
 grow_horizontal = 0
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="StrokensUI" type="HBoxContainer" parent="MarginContainer2" unique_id=1067327732]
-layout_mode = 2
-
-[node name="ObjectInfo" type="TextureRect" parent="MarginContainer2/StrokensUI" unique_id=1694902525]
+[node name="StrokensInfo" type="TextureRect" parent="MarginContainer2" unique_id=840700756]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-texture = ExtResource("5_blig7")
+texture = ExtResource("5_xtgum")
+stretch_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer2/StrokensUI/ObjectInfo" unique_id=748420362]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer2/StrokensInfo" unique_id=537027637]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -64,39 +63,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="NameLabel" type="Label" parent="MarginContainer2/StrokensUI/ObjectInfo/VBoxContainer" unique_id=1856330526]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 16
-text = "Petty Human"
-horizontal_alignment = 1
-vertical_alignment = 2
-
-[node name="StrikeLabel" type="Label" parent="MarginContainer2/StrokensUI/ObjectInfo/VBoxContainer" unique_id=984897480]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 18
-text = "35"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="StrokensInfo" type="TextureRect" parent="MarginContainer2/StrokensUI" unique_id=840700756]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-texture = ExtResource("5_blig7")
-
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer2/StrokensUI/StrokensInfo" unique_id=537027637]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Label" type="Label" parent="MarginContainer2/StrokensUI/StrokensInfo/VBoxContainer" unique_id=471035557]
+[node name="Label" type="Label" parent="MarginContainer2/StrokensInfo/VBoxContainer" unique_id=471035557]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 16
@@ -104,11 +71,74 @@ text = "STROKENS"
 horizontal_alignment = 1
 vertical_alignment = 2
 
-[node name="StrokensLabel" type="Label" parent="MarginContainer2/StrokensUI/StrokensInfo/VBoxContainer" unique_id=571436458]
+[node name="StrokensLabel" type="Label" parent="MarginContainer2/StrokensInfo/VBoxContainer" unique_id=571436458]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 8
 theme_override_font_sizes/font_size = 18
 text = "1000000"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MarginContainer3" type="MarginContainer" parent="." unique_id=2132564864]
+propagate_maximum_size = false
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -143.0
+offset_top = -73.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="ObjectInfo" type="TextureRect" parent="MarginContainer3" unique_id=140913118]
+unique_name_in_owner = true
+layout_mode = 2
+texture = ExtResource("5_blig7")
+stretch_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer3" unique_id=1160909269]
+layout_mode = 2
+
+[node name="NameLabel" type="Label" parent="MarginContainer3/VBoxContainer" unique_id=1458373429]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 16
+text = "Petty Petty Petty Human"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer3/VBoxContainer" unique_id=1093008906]
+layout_mode = 2
+alignment = 1
+
+[node name="StrikeLabel" type="Label" parent="MarginContainer3/VBoxContainer/HBoxContainer" unique_id=2110948674]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 18
+text = "STRIKE"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CostLabel" type="Label" parent="MarginContainer3/VBoxContainer/HBoxContainer" unique_id=1425345131]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9490196, 0, 1, 1)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 18
+text = " 35"
 horizontal_alignment = 1
 vertical_alignment = 1

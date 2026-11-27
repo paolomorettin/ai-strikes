@@ -8,7 +8,7 @@ const PARKING_SPACE = 1.3
 enum Direction {LEFT, RIGHT}
 enum State {UNLOAD, LOAD, MOVE, STRIKE}
 
-static var strike_cost: int = 5
+static var strike_cost: int = 15
 static var strike_duration: float = 5.0 # s
 
 @export var stops: Array[MovingPlatformStop]
@@ -23,6 +23,7 @@ var idle_timer: Timer
 var strike_timer: Timer
 var queue: Array[Wheelchair]
 var queue_size: int
+var is_striking: bool = false
 
 ##### GRAPHICS
 var green_light_material: StandardMaterial3D = preload("res://materials/green_light_material.tres")
@@ -39,12 +40,14 @@ func depart():
 		current_traffic_light.turn_red()
 	
 	current_state = State.MOVE
-	%Mesh.set_surface_override_material(3, no_light_material)
+	if not is_striking:
+		%Mesh.set_surface_override_material(3, no_light_material)
 	current_stop = (current_stop + 1) % len(stops)
 
 func load_platform() -> void:
 	current_state = State.LOAD
-	%Mesh.set_surface_override_material(3, green_light_material)
+	if not is_striking:
+		%Mesh.set_surface_override_material(3, green_light_material)
 	idle_timer.wait_time = stops[current_stop].idle_time
 	idle_timer.start()
 
@@ -53,6 +56,9 @@ func unload_platform() -> void:
 	var current_traffic_light = traffic_lights[current_stop]
 	if current_traffic_light != null:
 		current_traffic_light.turn_green()
+		
+	if is_striking:
+		is_striking = false
 
 	if len(queue) > 0 :
 		current_state = State.UNLOAD
@@ -80,24 +86,14 @@ func park(wheelchair: Wheelchair) -> void:
 	var tween: Tween = get_tree().create_tween()
 	tween.tween_property(wheelchair, "position:x", target_x, parking_duration)
 	
-func strike() -> bool:
+func can_strike() -> bool:
+	return not is_striking
 	
-	#if current_state == State.LOAD or current_state == State.MOVE:
-			#strike_timer.timeout.connect(load_platform)
-	#elif State.UNLOAD:
-			#strike_timer.timeout.connect(load_platform)
-		#:
-			#strike_timer.timeout.connect(func(): current_state = State.MOVE)
-	
-	# effect for later
-	#var tween: Tween = get_tree().create_tween()
-	#for i in range(3):
-		#var current_screen_material = %Mesh.get_surface_override_material(3)
-		#
-		 
+func strike() -> void:
+	is_striking = true
+	%Mesh.set_surface_override_material(3, strike_light_material)
 	current_stop = (current_stop + 1) % len(stops)
-	
-	return true
+
 
 func _body_entered(body: Node3D) -> void:
 	if not (body is Wheelchair) or current_state != State.LOAD:

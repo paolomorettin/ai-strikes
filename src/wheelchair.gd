@@ -3,7 +3,7 @@ extends CharacterBody3D
 
 const THETA = deg_to_rad(5)
 
-static var time_to_live: float = 20.0 # s
+static var time_to_live: float = 60.0 # s
 static var acceleration: float = 0.05 # m/s^2
 static var deceleration: float = 0.15 # m/s^2
 static var max_speed: float = 4.0 # m/s
@@ -13,7 +13,7 @@ static var explosion_radius: float = 3.0 # m
 static var explosion_speed: float = 9.0 # m/s
 
 static var mayhem_score: int = 10
-static var strike_cost: int = 15
+static var strike_cost: int = 5
 static var strike_turn_arounds: int = 8 # happening twice as fast wrt 'turn_around_time'
 
 var strike_buffered: bool = false # needed for buffering a strike during an autonomous rotation
@@ -67,14 +67,13 @@ func die() -> void:
 	# score and cleanup
 	game.score(mayhem_score)
 	call_deferred("queue_free")
-	
 
-func strike() -> bool:
-	if current_state == State.OVERRIDE or current_state == State.STRIKE:
-		return false
-	elif current_state == State.ROTATE and not strike_buffered:
+func can_strike() -> bool:
+	return current_state != State.OVERRIDE and current_state != State.STRIKE and not strike_buffered
+
+func strike() -> void:
+	if current_state == State.ROTATE:
 		strike_buffered = true
-		return true
 	else:
 		current_state = State.STRIKE
 		var tween: Tween = get_tree().create_tween()
@@ -84,7 +83,6 @@ func strike() -> bool:
 			tween.tween_property(self, "quaternion", target_quaternion, turn_around_time / 2.0)
 			
 		tween.tween_callback(func (): current_state = State.IDLE)
-		return true
 
 func turn_around() -> void:
 	if current_state == State.STRIKE:

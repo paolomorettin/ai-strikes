@@ -25,9 +25,9 @@
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="mm"
      showgrid="false"
-     inkscape:zoom="1.5424223"
-     inkscape:cx="418.17342"
-     inkscape:cy="829.86353"
+     inkscape:zoom="0.77121115"
+     inkscape:cx="451.88662"
+     inkscape:cy="844.1268"
      inkscape:window-width="1920"
      inkscape:window-height="1008"
      inkscape:window-x="0"
@@ -238,6 +238,30 @@
        rx="7.209475"
        ry="7.7712913"
        inkscape:export-filename="../textures/box.png"
+       inkscape:export-xdpi="50"
+       inkscape:export-ydpi="50" />
+    <rect
+       style="fill:#808080;fill-opacity:0.5;stroke:#000000;stroke-width:1.8;stroke-dasharray:none"
+       id="rect708-7-3-2-7"
+       width="134.13623"
+       height="55.90358"
+       x="87.271072"
+       y="226.89119"
+       rx="15.98854"
+       ry="17.234488"
+       inkscape:export-filename="../../textures/box-big.png"
+       inkscape:export-xdpi="50"
+       inkscape:export-ydpi="50" />
+    <rect
+       style="fill:#f200ff;fill-opacity:0.39215687;stroke:#000000;stroke-width:1.8;stroke-dasharray:none"
+       id="rect708-7-3-2-6"
+       width="60.484058"
+       height="25.207771"
+       x="17.102333"
+       y="266.65924"
+       rx="7.209475"
+       ry="7.7712913"
+       inkscape:export-filename="../../textures/box-strokens.png"
        inkscape:export-xdpi="50"
        inkscape:export-ydpi="50" />
     <g

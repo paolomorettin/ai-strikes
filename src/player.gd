@@ -28,7 +28,8 @@ func interact_primary() -> void:
 		return
 	if "strike_cost" in selected and selected.has_method("strike"):
 		if game.strokens > selected.strike_cost:
-			if selected.strike():
+			if selected.can_strike():
+				selected.strike()
 				game.strokens -= selected.strike_cost
 		else:
 			game.game_ui.tilt_control(game.game_ui.strokens_info)
@@ -69,6 +70,7 @@ func _raycast() -> void:
 	var collision_mask: int = 4 # i.e. only objects
 	var query = PhysicsRayQueryParameters3D.create(global_position, target_position, collision_mask)
 	query.collide_with_areas = true
+	query.collide_with_bodies = false
 	var result = space_state.intersect_ray(query)
 	var collider = result.get("collider")
 	if collider is Area3D:

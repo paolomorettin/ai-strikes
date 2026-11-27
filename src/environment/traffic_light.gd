@@ -5,7 +5,7 @@ enum TrafficDirection {LEFT, RIGHT, UNSET}
 
 const PARKING_SPACE = 1.3 # m
 
-static var strike_cost: int = 20
+static var strike_cost: int = 10
 static var strike_duration: float = 10.0 # s
 
 @onready var control_area: Area3D = %ControlArea
@@ -75,13 +75,13 @@ func park(wheelchair: Wheelchair) -> void:
 	var tween: Tween = get_tree().create_tween()
 	tween.tween_property(wheelchair, "position:x", target_x, parking_duration)
 
-func strike() -> bool:
-	if not strike_timer.is_stopped():
-		return false
-	else:
-		strike_timer.start()
-		_set_lights()
-		return true
+func can_strike() -> bool:
+	return strike_timer.is_stopped()
+
+func strike():
+	strike_timer.start()
+	_set_lights()
+
 
 
 func _body_entered(body: Node3D) -> void:
