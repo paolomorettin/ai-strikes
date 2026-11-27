@@ -13,10 +13,11 @@ func _init(exp_point: Vector3, exp_radius: float, exp_speed: float) -> void:
 func _ready():
 	
 	global_position = explosion_point
+	var parent_node: Node = get_parent()
 	
 	# particle
 	var explosion_particle: CPUParticles3D = preload("res://particles/explosion_particle.tscn").instantiate()
-	get_parent().add_child(explosion_particle)
+	parent_node.add_child(explosion_particle)
 	explosion_particle.global_position = explosion_point
 	explosion_particle.finished.connect(explosion_particle.queue_free)
 	
@@ -29,8 +30,6 @@ func _ready():
 	# deadly blast
 	var blast_area := Area3D.new()
 	var blast_collision := CollisionShape3D.new()
-	
-	# TODO: maybe this should be a box expanding on the xz plane instead
 	var blast_shape := SphereShape3D.new()
 	add_child(blast_area)
 	blast_area.add_child(blast_collision)
@@ -46,10 +45,14 @@ func _ready():
 	
 	# BOOM!
 	explosion_particle.emitting = true
-	var tween: Tween = get_tree().create_tween()
-	tween.tween_property(blast_shape, "radius", explosion_radius, 1.0 / explosion_speed)
-	tween.parallel()
-	tween.tween_property(explosion_light, "omni_range", explosion_radius, 1.0 / explosion_speed)
-	tween.tween_callback(queue_free)
+	var blast_tween: Tween = get_tree().create_tween()
+	blast_tween.tween_property(blast_shape, "radius", explosion_radius, 1.0 / explosion_speed)
+	blast_tween.tween_callback(blast_area.queue_free)
+	var light_tween: Tween = get_tree().create_tween()
+	light_tween.tween_property(explosion_light, "omni_range", explosion_radius, 1.0 / explosion_speed)
+	light_tween.parallel()
+	light_tween.tween_property(explosion_light, "light_energy", 10.0, explosion_particle.lifetime)
+	light_tween.tween_property(explosion_light, "light_energy", 0.0, 0.2)
+	light_tween.tween_callback(queue_free)
 	
 	

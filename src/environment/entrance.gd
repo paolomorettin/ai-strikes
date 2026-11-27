@@ -8,6 +8,7 @@ static var strike_duration: float = 15.0 # s
 
 @export var direction: Direction = Direction.RIGHT
 @export var spawn_time: float = 10.0 # s
+@export var initial_spawn_time: float = 0.0 # s
 
 @onready var control_area: Area3D = %ControlArea
 
@@ -31,6 +32,9 @@ func control_traffic(body: Node3D) -> void:
 		(body as Wheelchair).turn_around()
 
 func spawn() -> void:
+	
+	spawn_timer.wait_time = spawn_time
+	
 	# ensure no wheelchairs are around
 	for body in control_area.get_overlapping_bodies():
 		if body is Wheelchair:
@@ -68,7 +72,8 @@ func spawn() -> void:
 	tween.tween_callback(
 		func (): 
 			is_spawning = false
-			last_spawned.current_state = Wheelchair.State.IDLE; 
+			if is_instance_valid(last_spawned):
+				last_spawned.current_state = Wheelchair.State.IDLE; 
 	)
 	
 func can_strike() -> bool:
@@ -85,9 +90,8 @@ func _ready() -> void:
 	
 	spawn_timer = Timer.new()
 	add_child(spawn_timer)
-	spawn_timer.wait_time = spawn_time
 	spawn_timer.timeout.connect(spawn)
-	spawn_timer.start()
+	spawn_timer.start(initial_spawn_time)
 	
 	strike_timer = Timer.new()
 	add_child(strike_timer)

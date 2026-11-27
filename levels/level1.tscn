@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://bjfrbbwxog7wp" path="res://src/environment/platform1.tscn" id="9_omn1t"]
 [ext_resource type="PackedScene" uid="uid://j0i5r7c1bb2i" path="res://src/environment/wall.tscn" id="9_yydhl"]
 [ext_resource type="PackedScene" uid="uid://cfb65ae8pqwvs" path="res://src/environment/boom_barrier.tscn" id="11_yydhl"]
+[ext_resource type="PackedScene" uid="uid://cwrd4m3gx4dh8" path="res://resources/blender/export/landscape.glb" id="12_bekh1"]
 
 [sub_resource type="Environment" id="Environment_2ijik"]
 background_mode = 1
@@ -26,26 +27,26 @@ glow_hdr_scale = 1.28
 
 [sub_resource type="Resource" id="Resource_kigl1"]
 script = ExtResource("3_omn1t")
-position = Vector3(-3, 0, 0)
+position = Vector3(-4, 8, 0)
 metadata/_custom_type_script = "uid://4vpbua2c1on"
 
 [sub_resource type="Resource" id="Resource_cswyw"]
 script = ExtResource("3_omn1t")
-position = Vector3(4, 0, 0)
+position = Vector3(3, 8, 0)
 load_direction = 1
 unload_direction = 1
 metadata/_custom_type_script = "uid://4vpbua2c1on"
 
 [sub_resource type="Resource" id="Resource_6hx2h"]
 script = ExtResource("3_omn1t")
-position = Vector3(4, -8, 0)
+position = Vector3(3, 0, 0)
 load_direction = 1
 unload_direction = 1
 metadata/_custom_type_script = "uid://4vpbua2c1on"
 
 [sub_resource type="Resource" id="Resource_jh0x5"]
 script = ExtResource("3_omn1t")
-position = Vector3(-3, -5, 0)
+position = Vector3(-4, 3, 0)
 metadata/_custom_type_script = "uid://4vpbua2c1on"
 
 [node name="Level1" type="Node3D" unique_id=2057342584]
@@ -58,62 +59,63 @@ transform = Transform3D(0.9605089, 0.068557285, -0.2696712, 0, 0.9691713, 0.2463
 visible = false
 
 [node name="MovingPlatform" parent="." unique_id=1700442084 node_paths=PackedStringArray("traffic_lights") instance=ExtResource("2_045es")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 8, 0)
 stops = Array[ExtResource("3_omn1t")]([SubResource("Resource_kigl1"), SubResource("Resource_cswyw"), SubResource("Resource_6hx2h"), SubResource("Resource_jh0x5")])
 traffic_lights = [NodePath("../TrafficLight"), null, NodePath("../TrafficLight4"), null]
 
 [node name="TrafficLight" parent="." unique_id=792372366 instance=ExtResource("4_lf3p4")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 8, 0)
 
 [node name="Entrance" parent="." unique_id=617829593 instance=ExtResource("6_bekh1")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 8, 0)
 spawn_time = 30.0
+initial_spawn_time = 3.0
 
 [node name="TrafficLight4" parent="." unique_id=304516106 instance=ExtResource("4_lf3p4")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, -8, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 0)
 is_green = false
 
 [node name="Entrance4" parent="." unique_id=109744187 instance=ExtResource("6_bekh1")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, -8, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 0, 0)
 direction = 0
 spawn_time = 30.0
 
 [node name="Entrance5" parent="." unique_id=1456515120 instance=ExtResource("6_bekh1")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, -11, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, -3, 0)
 spawn_time = 1.0
 
 [node name="Exit" parent="." unique_id=1093866476 instance=ExtResource("7_8bcou")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, -5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 3, 0)
 
 [node name="Exit3" parent="." unique_id=1194462339 instance=ExtResource("7_8bcou")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, -11, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, -3, 0)
 
 [node name="Exit2" parent="." unique_id=1979772978 instance=ExtResource("7_8bcou")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 8, 0)
 
 [node name="Platform2" parent="." unique_id=2103395743 instance=ExtResource("7_8hd6v")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 8, 0)
 
 [node name="Platform4" parent="." unique_id=1774390778 instance=ExtResource("7_8hd6v")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, -5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 3, 0)
 
 [node name="Platform3" parent="." unique_id=1194205782 instance=ExtResource("7_8hd6v")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 8, 0)
 
 [node name="Wall" parent="Platform3" unique_id=231295097 instance=ExtResource("9_yydhl")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 0)
 
 [node name="Platform5" parent="." unique_id=1075280522 instance=ExtResource("7_8hd6v")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, -8, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, 0)
 
 [node name="Platform7" parent="." unique_id=835857053 instance=ExtResource("7_8hd6v")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, -11, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, -3, 0)
 
 [node name="Platform8" parent="." unique_id=1110494743 instance=ExtResource("7_8hd6v")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, -11, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, -3, 0)
 
 [node name="Platform6" parent="." unique_id=1384748748 instance=ExtResource("7_8hd6v")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, -8, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0, 0)
 
 [node name="Barrels" parent="Platform6" unique_id=138851073 instance=ExtResource("8_lf3p4")]
 
@@ -121,7 +123,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, -8, 0)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0)
 
 [node name="Platform9" parent="." unique_id=961125729 instance=ExtResource("7_8hd6v")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, -5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13, 3, 0)
 
 [node name="Barrels" parent="Platform9" unique_id=579422480 instance=ExtResource("8_lf3p4")]
 
@@ -129,9 +131,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, -5, 0)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 0)
 
 [node name="TvTerrace" parent="." unique_id=1781236683 instance=ExtResource("8_045es")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 8, 0)
 
 [node name="Platform1" parent="." unique_id=1097063730 instance=ExtResource("9_omn1t")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, -8, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 0, 0)
 
 [node name="BoomBarrier" parent="Platform1" unique_id=1638429252 instance=ExtResource("11_yydhl")]
+
+[node name="landscape" parent="." unique_id=508940696 instance=ExtResource("12_bekh1")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, -100, -100)
