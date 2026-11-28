@@ -9,7 +9,7 @@ extends Control
 
 var strokens_symbol = " \u0336S\u0336T\u0336"
 
-var adjectives: Array[String] = ["Feeble", "Flaccid", "Negligible", "Petty", "Useless", "Worthless"]
+var adjectives: Array[String] = ["Feeble", "Flaccid", "Inadequate", "Negligible", "Pathetic", "Petty", "Undeserving", "Useless", "Worthless"]
 
 func tilt_control(control: Control) -> void:
 	var n_shakes: int = 5
@@ -43,7 +43,7 @@ func _process(_delta: float) -> void:
 		
 		if selected is Wheelchair:
 			var adjective = adjectives[hash(selected) % len(adjectives)]
-			%NameLabel.text = adjective + " Human's Wheels"
+			%NameLabel.text = adjective + " Human"
 			%InfoLabel.text = "Lifetime %d s" % selected.ttl_timer.time_left
 			%StrikeLabel.text = "SPIN"
 		elif selected is TrafficLight:

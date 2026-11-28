@@ -17,7 +17,17 @@ static var strike_duration: float = 5.0 # s
 
 @onready var control_area: Area3D = %ControlArea
 
-var current_state: State
+var current_state: State:
+	set(value):
+		current_state = value
+		if value == State.MOVE:
+			if not stream_player.playing:
+				stream_player.play()
+			else:
+				stream_player.stream_paused = false
+		else:
+			stream_player.stream_paused = true
+
 var current_stop: int = 0
 var idle_timer: Timer
 var strike_timer: Timer
@@ -32,6 +42,10 @@ var red_light_material: StandardMaterial3D = preload("res://materials/red_light_
 var strike_light_material: StandardMaterial3D = preload("res://materials/strike_light_material.tres")
 
 @onready var selection_overlay_meshes: Array[MeshInstance3D] = [%Mesh]
+
+##### AUDIO
+static var sound: AudioStream = preload("res://sounds/motion.wav")
+var stream_player: AudioStreamPlayer3D
 
 func depart():
 	var current_traffic_light = traffic_lights[current_stop]
@@ -146,5 +160,9 @@ func _ready() -> void:
 	# compute queue size based on the control area size
 	var control_area_size = (control_area.get_child(0).shape as BoxShape3D).size.x
 	queue_size = int(control_area_size / PARKING_SPACE)
+	
+	stream_player = AudioStreamPlayer3D.new()
+	add_child(stream_player)
+	stream_player.stream = sound
 	
 	current_state = State.MOVE

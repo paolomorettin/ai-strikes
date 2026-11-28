@@ -17,6 +17,10 @@ var strike_light_material: StandardMaterial3D = preload("res://materials/strike_
 
 @onready var selection_overlay_meshes: Array[MeshInstance3D] = [%GateMesh]
 
+##### AUDIO
+static var sound: AudioStream = preload("res://sounds/despawn.wav")
+var stream_player: AudioStreamPlayer3D
+
 
 func control_traffic(body: Node3D) -> void:
 	if not (body is Wheelchair):
@@ -50,7 +54,8 @@ func serve(wheelchair: Wheelchair) -> void:
 	tween.tween_callback(
 		func (): 
 			if is_instance_valid(wheelchair):
-				wheelchair.queue_free() 
+				wheelchair.queue_free()
+				stream_player.play()
 			is_despawning = false
 	)
 	
@@ -73,6 +78,10 @@ func _ready() -> void:
 	strike_timer.timeout.connect(func(): _set_lights())
 	
 	_set_lights()
+	
+	stream_player = AudioStreamPlayer3D.new()
+	add_child(stream_player)
+	stream_player.stream = sound
 	
 func _set_lights() -> void:
 	const light_surface = 1

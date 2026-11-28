@@ -1,6 +1,8 @@
 class_name Explosion
 extends Node3D
 
+static var sound: AudioStream = preload("res://sounds/explosion.wav")
+
 var explosion_point: Vector3
 var explosion_radius: float # m
 var explosion_speed: float # m/s
@@ -44,6 +46,13 @@ func _ready():
 	blast_shape.radius = 0.1
 	
 	# BOOM!
+	var audio_stream_player = AudioStreamPlayer3D.new()
+	parent_node.add_child(audio_stream_player)
+	audio_stream_player.global_position = explosion_point
+	audio_stream_player.stream = sound
+	audio_stream_player.play()
+	audio_stream_player.finished.connect(audio_stream_player.queue_free)
+	
 	explosion_particle.emitting = true
 	var blast_tween: Tween = get_tree().create_tween()
 	blast_tween.tween_property(blast_shape, "radius", explosion_radius, 1.0 / explosion_speed)

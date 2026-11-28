@@ -23,6 +23,10 @@ var green_light_material: StandardMaterial3D = preload("res://materials/green_li
 var no_light_material: StandardMaterial3D = preload("res://materials/no_light_material.tres")
 var strike_light_material: StandardMaterial3D = preload("res://materials/strike_light_material.tres")
 
+##### AUDIO
+static var sound: AudioStream = preload("res://sounds/spawn.wav")
+var stream_player: AudioStreamPlayer3D
+
 @onready var selection_overlay_meshes: Array[MeshInstance3D] = [%GateMesh]
 
 func control_traffic(body: Node3D) -> void:
@@ -76,6 +80,9 @@ func spawn() -> void:
 				last_spawned.current_state = Wheelchair.State.IDLE; 
 	)
 	
+	# audio cue
+	stream_player.play()
+	
 func can_strike() -> bool:
 	return strike_timer.is_stopped()
 	
@@ -100,6 +107,10 @@ func _ready() -> void:
 	strike_timer.timeout.connect(func(): _set_lights())
 	
 	_set_lights()
+	
+	stream_player = AudioStreamPlayer3D.new()
+	add_child(stream_player)
+	stream_player.stream = sound
 	
 func _set_lights() -> void:
 	const left_surface = 1

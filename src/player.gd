@@ -10,6 +10,10 @@ var zoom_increment: float = 0.5
 
 var selection_material: StandardMaterial3D = preload("res://materials/selection.tres")
 
+##### AUDIO
+static var strike_sound: AudioStream = preload("res://sounds/strike.wav")
+var stream_player: AudioStreamPlayer
+
 var selected: Node3D:
 	set(value):
 		if selected != null:
@@ -37,6 +41,8 @@ func interact_primary() -> void:
 		if game.strokens > selected.strike_cost:
 			if selected.can_strike():
 				selected.strike()
+				# audio cue
+				stream_player.play()
 				game.strokens -= selected.strike_cost
 		else:
 			game.game_ui.tilt_control(game.game_ui.strokens_info)
@@ -88,3 +94,7 @@ func _raycast() -> void:
 func _ready() -> void:
 	global_position = Vector3(0, 0, 10)
 	next_camera_position = global_position
+	
+	stream_player = AudioStreamPlayer.new()
+	add_child(stream_player)
+	stream_player.stream = strike_sound

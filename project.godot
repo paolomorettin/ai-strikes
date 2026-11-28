@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="AI strikes"
+config/name="Strokens"
 run/main_scene="uid://64ev4l28j6c1"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 config/icon="res://icon.svg"
@@ -28,8 +28,9 @@ folder_colors={
 "res://materials/": "green",
 "res://particles/": "yellow",
 "res://resources/": "orange",
-"res://src/": "red",
-"res://textures/": "pink"
+"res://sounds/": "red",
+"res://src/": "pink",
+"res://textures/": "purple"
 }
 
 [filesystem]
