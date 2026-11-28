@@ -6,7 +6,9 @@ extends Camera3D
 const EPSILON = 0.01
 
 var next_camera_position: Vector3
-var zoom_increment: float = 0.5
+var planar_increment: float = 0.5
+var zoom_levels: Array[float] = [50, 10, 5]
+var current_zoom: int = 1
 
 var selection_material: StandardMaterial3D = preload("res://materials/selection.tres")
 
@@ -53,23 +55,28 @@ func _input(event: InputEvent) -> void:
 		_raycast()
 	
 	if event.is_action_pressed("zoom_in"):
-		next_camera_position.z -= zoom_increment
+		current_zoom = clampi(current_zoom + 1, 0, len(zoom_levels) - 1)
 	elif event.is_action_pressed("zoom_out"):
-		next_camera_position.z += zoom_increment
+		current_zoom = clampi(current_zoom - 1, 0, len(zoom_levels) - 1)
 	elif event.is_action_pressed("primary"):
 		interact_primary()
+		
+	next_camera_position.z = zoom_levels[current_zoom]
 
 
 func _physics_process(delta: float) -> void:
 	
 	if Input.is_action_pressed("left"):
-		next_camera_position.x -= zoom_increment
+		next_camera_position.x -= planar_increment
 	if Input.is_action_pressed("right"):
-		next_camera_position.x += zoom_increment
+		next_camera_position.x += planar_increment
 	if Input.is_action_pressed("down"):
-		next_camera_position.y -= zoom_increment
+		next_camera_position.y -= planar_increment
 	if Input.is_action_pressed("up"):
-		next_camera_position.y += zoom_increment
+		next_camera_position.y += planar_increment
+		
+	next_camera_position.x = clampf(next_camera_position.x, -game.size, game.size)
+	next_camera_position.y = clampf(next_camera_position.y, -game.size, game.size)
 	
 	var direction: Vector3 = (next_camera_position - global_position)
 	if direction.length() > EPSILON:

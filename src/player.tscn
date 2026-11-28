@@ -4,7 +4,3 @@
 
 [node name="Player" type="Camera3D" unique_id=1529662360]
 script = ExtResource("1_xx8j4")
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1241000849]
-light_color = Color(0.2275, 0.91, 0.8417499, 1)
-light_energy = 0.8

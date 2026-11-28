@@ -18,7 +18,6 @@ static var strike_duration: float = 4.0
 
 var strike_buffered: bool = false # needed for buffering a strike during an autonomous rotation
 
-@onready var game: Game = get_parent().get_parent()
 @onready var halt_timer: Timer
 @onready var ttl_timer: Timer
 @onready var sensing: Area3D = %Sensing
@@ -81,7 +80,7 @@ func die() -> void:
 	get_parent().add_child(explosion)
 
 	# score and cleanup
-	game.score(mayhem_score)
+	Global.game.score(mayhem_score)
 	call_deferred("queue_free")
 
 func can_strike() -> bool:

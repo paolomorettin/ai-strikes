@@ -29,6 +29,9 @@ func score(points: float) -> void:
 	game_ui.tilt_control(game_ui.mayhem_bar)
 
 func _ready() -> void:
+	
+	Global.game = self
+	
 	if player == null:
 		player = preload("res://src/player.tscn").instantiate()
 		add_child(player)
